@@ -12,7 +12,12 @@ public enum BackgroundSet {
     /**
      * Mostly spiral backgrounds with a few other patterns.
      */
-    SPIRAL_AND_PATTERNS("bg2");
+    SPIRAL_AND_PATTERNS("bg2"),
+
+    /**
+     * Any background is valid and RoboHash may choose.
+     */
+    ANY("any");
 
     private final String setName;
 

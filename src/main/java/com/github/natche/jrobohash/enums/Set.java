@@ -27,7 +27,12 @@ public enum Set {
     /**
      * The human set for those afraid of the uprising.
      */
-    HUMANS("set5");
+    HUMANS("set5"),
+
+    /**
+     * Any set is valid and RoboHash may choose.
+     */
+    ANY("any");
 
     private final String urlParameterName;
 
