@@ -1,19 +1,32 @@
 plugins {
     id("java")
+    id("jacoco")
 }
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
+group = "com.github.natche"
+version = "0.1"
 
 repositories {
     mavenCentral()
 }
 
+val junitVersion by extra { "5.9.2" }
+val guavaVersion by extra { "31.1-jre" }
+
 dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+    implementation("com.google.guava:guava:$guavaVersion")
 }
 
-tasks.getByName<Test>("test") {
+tasks.withType<JacocoReport> {
+    reports {
+        xml.outputLocation.set(file("$buildDir/reports/jacoco/test/xml"))
+        xml.required.set(true)
+        html.required.set(false)
+    }
+}
+
+tasks.withType<Test> {
     useJUnitPlatform()
 }
