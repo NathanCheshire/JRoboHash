@@ -30,7 +30,7 @@ public enum UseGravatar {
         return switch (this) {
             case NO -> "no";
             case YES -> "yes";
-            case HASHED ->  "hashed";
+            case HASHED -> "hashed";
         };
     }
 }

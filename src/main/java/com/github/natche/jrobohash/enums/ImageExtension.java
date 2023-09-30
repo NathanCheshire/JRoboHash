@@ -1,7 +1,9 @@
 package com.github.natche.jrobohash.enums;
 
 /**
- * The image extensions supported by the RoboHash API.
+ * The image extensions supported by the RoboHash API. If, for some reason, an invalid image
+ * extension makes its way to the RoboHash servers, an image named with the provided invalid
+ * extension will be returned but the underlying image will be of {@link #PNG} format.
  */
 public enum ImageExtension {
     /**
@@ -64,5 +66,4 @@ public enum ImageExtension {
                 ? filename.substring(0, filename.lastIndexOf(".")) + getExtensionWithPeriod()
                 : filename + getExtensionWithPeriod();
     }
-
 }

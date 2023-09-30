@@ -59,7 +59,7 @@ public enum UrlParameter {
      * For example, if "1,2,3" and true are provided, and this {@link UrlParameter} is
      * of type {@link #IMAGE_SETS} then "?sets=1,2,3" would be returned.
      *
-     * @param parameter the parameter to encode
+     * @param parameter        the parameter to encode
      * @param isFirstParameter whether this parameter is the first URL parameter in the query string section of the URL.
      * @return the encoded URL parameter
      */

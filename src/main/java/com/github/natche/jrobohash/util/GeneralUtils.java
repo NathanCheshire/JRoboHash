@@ -6,26 +6,23 @@ import com.google.common.collect.ImmutableList;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.regex.Pattern;
 
 /**
- * General utility methods used throughout the GravatarJavaClient.
+ * General utility methods used throughout JRoboHash.
  */
 public final class GeneralUtils {
+    private static final Pattern ROBOHASH_SAFE_STRING_PATTERN = Pattern.compile("^[a-zA-Z0-9-._~]+$");
+
     /**
      * The invalid filename characters for Windows and Unix based systems.
      */
     private static final ImmutableList<Character> INVALID_FILENAME_CHARS = ImmutableList.of(
             '<', '>', ':', '\\', '|', '?', '*', '/', '\'', '"', '\u0000'
     );
-
-    /**
-     * The buffer size used by the {@link BufferedReader} when reading the contents of a URL.
-     */
-    private static final int READ_URL_BUFFER_SIZE = 1024;
 
     /**
      * Suppress default constructor.
@@ -41,9 +38,9 @@ public final class GeneralUtils {
      *
      * @param url the URL
      * @return the URL from the provided image
-     * @throws NullPointerException        if the provided URL is null
-     * @throws IllegalArgumentException    if the provided URL is empty
-     * @throws JRoboHashException if an image cannot be read from the provided URL
+     * @throws NullPointerException     if the provided URL is null
+     * @throws IllegalArgumentException if the provided URL is empty
+     * @throws JRoboHashException       if an image cannot be read from the provided URL
      */
     public static BufferedImage readBufferedImage(String url) {
         Preconditions.checkNotNull(url);
@@ -54,34 +51,6 @@ public final class GeneralUtils {
         } catch (Exception e) {
             throw new JRoboHashException("Failed to get image from url: "
                     + url + ", error: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Reads from the provided URL and returns the response data.
-     *
-     * @param url the URL to ping and read data from
-     * @return the contents of the provided URL
-     * @throws NullPointerException        if the provided URL is null
-     * @throws IllegalArgumentException    if the provided URL is empty
-     * @throws JRoboHashException if an exception occurs when reading from the provided URL
-     */
-    public static String readUrl(String url) {
-        Preconditions.checkNotNull(url);
-        Preconditions.checkArgument(!url.isEmpty());
-
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(url).openStream()))) {
-            StringBuilder builder = new StringBuilder();
-
-            char[] chars = new char[READ_URL_BUFFER_SIZE];
-            int read;
-            while ((read = reader.read(chars)) != -1) {
-                builder.append(chars, 0, read);
-            }
-
-            return builder.toString();
-        } catch (IOException e) {
-            throw new JRoboHashException("Failed to read contents of URL: " + url);
         }
     }
 
@@ -97,10 +66,39 @@ public final class GeneralUtils {
         Preconditions.checkNotNull(filename);
         Preconditions.checkArgument(!filename.isEmpty());
 
-        for (char c : filename.toCharArray()) {
-            if (INVALID_FILENAME_CHARS.contains(c)) return false;
-        }
-
-        return true;
+        return filename.chars()
+                .mapToObj(c -> (char) c)
+                .noneMatch(INVALID_FILENAME_CHARS::contains);
     }
+
+    /**
+     * Returns whether the provided input is valid to pass to RoboHash.
+     *
+     * @param input the input string to test for validity
+     * @return whether the provided input is valid to pass to RoboHash.
+     * @throws NullPointerException     if the provided input is null
+     * @throws IllegalArgumentException if the provided input is empty
+     */
+    public static boolean isValidUrlChars(String input) {
+        Preconditions.checkNotNull(input);
+        Preconditions.checkArgument(!input.trim().isEmpty());
+
+        return ROBOHASH_SAFE_STRING_PATTERN.matcher(input).matches();
+    }
+
+    /**
+     * Encodes the provided input to be provided in a URL.
+     *
+     * @param input the input to be encoded in a URL
+     * @return the provided input after encoding for a URL
+     * @throws NullPointerException     if the provided input is null
+     * @throws IllegalArgumentException if the provided input is empty
+     */
+    public static String encodeUrl(String input) {
+        Preconditions.checkNotNull(input);
+        Preconditions.checkArgument(!input.trim().isEmpty());
+
+        return URLEncoder.encode(input, StandardCharsets.UTF_8);
+    }
+
 }

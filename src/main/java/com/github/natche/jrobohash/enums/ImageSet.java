@@ -1,9 +1,9 @@
 package com.github.natche.jrobohash.enums;
 
 /**
- * The possible RoboHash avatar construction sets.
+ * The possible RoboHash avatar image sets.
  */
-public enum Set {
+public enum ImageSet {
     /**
      * The default set.
      */
@@ -36,7 +36,7 @@ public enum Set {
 
     private final String urlParameterName;
 
-    Set(String urlParameterName) {
+    ImageSet(String urlParameterName) {
         this.urlParameterName = urlParameterName;
     }
 

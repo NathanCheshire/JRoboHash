@@ -1,7 +1,7 @@
 package com.github.natche.jrobohash.enums;
 
 /**
- * The possible background sets for RoboHash.
+ * The possible background image sets for RoboHash.
  */
 public enum BackgroundSet {
     /**

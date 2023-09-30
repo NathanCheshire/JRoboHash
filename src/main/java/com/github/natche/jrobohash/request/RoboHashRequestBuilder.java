@@ -2,7 +2,7 @@ package com.github.natche.jrobohash.request;
 
 import com.github.natche.jrobohash.enums.BackgroundSet;
 import com.github.natche.jrobohash.enums.ImageExtension;
-import com.github.natche.jrobohash.enums.Set;
+import com.github.natche.jrobohash.enums.ImageSet;
 import com.github.natche.jrobohash.enums.UseGravatar;
 
 import java.awt.*;
@@ -15,45 +15,45 @@ public interface RoboHashRequestBuilder {
     /**
      * Adds the provided image set to the sets this request can use.
      *
-     * @param set the image set to add to the sets this request can use
+     * @param imageSet the image set to add to the sets this request can use
      * @return this builder
      */
-    RoboHashRequestBuilder addImageSet(Set set);
+    RoboHashRequestBuilder addImageSet(ImageSet imageSet);
 
     /**
      * Removes the provided image set from the sets this request can use.
      *
-     * @param set the image set to remove from the sets this request can use
+     * @param imageSet the image set to remove from the sets this request can use
      * @return this builder
      */
-    RoboHashRequestBuilder removeImageSet(Set set);
+    RoboHashRequestBuilder removeImageSet(ImageSet imageSet);
 
     /**
      * Adds the provided image sets to the sets this request can use.
      *
-     * @param sets the image sets to add to the sets this request can use
+     * @param imageSets the image sets to add to the sets this request can use
      * @return this builder
      */
-    RoboHashRequestBuilder addImageSets(Collection<Set> sets);
+    RoboHashRequestBuilder addImageSets(Collection<ImageSet> imageSets);
 
     /**
      * Removes the provided image sets from the sets this request can use.
      *
-     * @param sets the image sets to remove from the sets this request can use
+     * @param imageSets the image sets to remove from the sets this request can use
      * @return this builder
      */
-    RoboHashRequestBuilder removeImageSets(Collection<Set> sets);
+    RoboHashRequestBuilder removeImageSets(Collection<ImageSet> imageSets);
 
     /**
      * Sets the image sets this request can use.
      *
-     * @param sets the image sets this request can use
+     * @param imageSets the image sets this request can use
      * @return this builder
      */
-    RoboHashRequestBuilder setImageSets(Collection<Set> sets);
+    RoboHashRequestBuilder setImageSets(Collection<ImageSet> imageSets);
 
     /**
-     * Removes all sets this request can use and sets the default, that of {@link Set#ANY}.
+     * Removes all sets this request can use and sets the default, that of {@link ImageSet#ANY}.
      *
      * @return this builder
      */
