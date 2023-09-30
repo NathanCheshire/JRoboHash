@@ -45,7 +45,6 @@ public enum Set {
     }
 
     public String constructUrlParameter(boolean firstParameter) {
-        String prefix = firstParameter ? "?" : "&";
-        return prefix + "set=" + urlParameterName;
+        return UrlParameter.IMAGE_SET.encodeUrlParameter(urlParameterName, firstParameter);
     }
 }

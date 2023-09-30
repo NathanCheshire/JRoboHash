@@ -58,4 +58,11 @@ public enum ImageExtension {
     public String addAsSuffix(String prefix) {
         return prefix + getExtensionWithPeriod();
     }
+
+    public String setAsImageExtension(String filename) {
+        return filename.lastIndexOf(".") != -1
+                ? filename.substring(0, filename.lastIndexOf(".")) + getExtensionWithPeriod()
+                : filename + getExtensionWithPeriod();
+    }
+
 }

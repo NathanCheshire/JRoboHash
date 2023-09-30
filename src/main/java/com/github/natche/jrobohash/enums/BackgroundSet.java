@@ -41,7 +41,6 @@ public enum BackgroundSet {
      * @return the url parameter for this background set
      */
     public String constructUrlParameter(boolean firstParameter) {
-        String prefix = firstParameter ? "?" : "&";
-        return prefix + "bgset=" + setName;
+        return UrlParameter.BACKGROUND_SET.encodeUrlParameter(setName, firstParameter);
     }
 }

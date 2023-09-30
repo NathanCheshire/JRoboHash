@@ -18,5 +18,19 @@ public enum UseGravatar {
     /**
      * Gravatar should be used AND the provided string has already been MD5 hashed.
      */
-    HASHED,
+    HASHED;
+
+    public String constructUrlParameter(boolean firstParameter) {
+        if (this == UseGravatar.NO) return "";
+        return UrlParameter.USE_GRAVATAR.encodeUrlParameter(toString(), firstParameter);
+    }
+
+    @Override
+    public String toString() {
+        return switch (this) {
+            case NO -> "no";
+            case YES -> "yes";
+            case HASHED ->  "hashed";
+        };
+    }
 }
