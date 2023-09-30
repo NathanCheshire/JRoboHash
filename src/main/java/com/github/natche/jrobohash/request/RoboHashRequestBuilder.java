@@ -30,9 +30,9 @@ public interface RoboHashRequestBuilder {
     RoboHashRequestBuilder resetUseGravatar();
 
     RoboHashRequestBuilder setWidth(int width);
-    RoboHashRequestBuilder unsetWidth();
+    RoboHashRequestBuilder resetWidth();
     RoboHashRequestBuilder setHeight(int height);
-    RoboHashRequestBuilder unsetHeight();
+    RoboHashRequestBuilder resetHeight();
     RoboHashRequestBuilder setSize(Dimension size);
-    RoboHashRequestBuilder unsetSize();
+    RoboHashRequestBuilder resetSize();
 }
