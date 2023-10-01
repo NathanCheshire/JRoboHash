@@ -173,18 +173,4 @@ public interface RoboHashRequestBuilder {
      * @return this builder
      */
     RoboHashRequestBuilder resetSize();
-
-    /**
-     * Builds and returns the request URL based on the current state of this builder.
-     *
-     * @return the built url
-     */
-    String buildRequestUrl();
-
-    /**
-     * Builds the URL based on the current state of this builder and reads and returned the image from the URL.
-     *
-     * @return the {@link Image} read from the URL
-     */
-    Image getImage();
 }

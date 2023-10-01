@@ -16,6 +16,7 @@ import java.util.List;
  * The standard, default implementation of {@link RoboHashRequestBuilder}.
  *
  * @author nathancheshire
+ * @since  1.0
  */
 public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     public static final int DEFAULT_WIDTH = 300;
@@ -78,7 +79,6 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     @Override
     public RoboHashRequestBuilder addImageSet(ImageSet imageSet) {
         Preconditions.checkNotNull(imageSet);
-        // Possibly returns false as specified by the Collections API, but we do not care here
         imageSets.add(imageSet);
         return this;
     }
@@ -242,6 +242,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
      */
     @Override
     public RoboHashRequestBuilder resetIgnoreExtension() {
+        ignoreExtension = true;
         return this;
     }
 
@@ -320,8 +321,23 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
         return this;
     }
 
+    /**
+     * Sets the width and height of the image returned by this request to the provided size.
+     *
+     * @param size the size of this request
+     * @return this builder
+     * @throws NullPointerException if the provided size is null
+     * @throws IllegalArgumentException if a dimension is less than 0
+     */
     @Override
     public RoboHashRequestBuilder setSize(Dimension size) {
+        Preconditions.checkNotNull(size);
+        int width = size.width;
+        int height = size.height;
+        Preconditions.checkArgument(width >= 0);
+        Preconditions.checkArgument(height >= 0);
+        this.width = width;
+        this.height = height;
         return this;
     }
 
@@ -360,22 +376,19 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     }
 
     @Override
-    public String buildRequestUrl() {
-        return null;
-    }
-
-    @Override
-    public Image getImage() {
-        return null;
-    }
-
-    @Override
     public int hashCode() {
         return 0;
     }
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (!(o instanceof RoboHashRequestBuilderImpl)) {
+            return false;
+        }
+
+        RoboHashRequestBuilderImpl other = (RoboHashRequestBuilderImpl) o;
         return false;
     }
 
