@@ -6,6 +6,7 @@ import com.github.natche.jrobohash.enums.ImageSet;
 import com.github.natche.jrobohash.enums.UseGravatar;
 import com.github.natche.jrobohash.util.GeneralUtils;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.List;
  * The standard, default implementation of {@link RoboHashRequestBuilder}.
  *
  * @author nathancheshire
- * @since  1.0
+ * @since 1.0
  */
 public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     public static final int DEFAULT_WIDTH = 300;
@@ -101,7 +102,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
      *
      * @param imageSets the image sets to add to the sets this request can use
      * @return this builder
-     * @throws NullPointerException if the provided collection is null
+     * @throws NullPointerException     if the provided collection is null
      * @throws IllegalArgumentException if the provided collection is empty
      */
     @Override
@@ -117,7 +118,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
      *
      * @param imageSets the image sets to remove from the sets this request can use
      * @return this builder
-     * @throws NullPointerException if the provided collection is null
+     * @throws NullPointerException     if the provided collection is null
      * @throws IllegalArgumentException if the provided collection is empty
      */
     @Override
@@ -133,7 +134,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
      *
      * @param imageSets the image sets this request can use
      * @return this builder
-     * @throws NullPointerException if the provided sets is null
+     * @throws NullPointerException     if the provided sets is null
      * @throws IllegalArgumentException if the provided sets is empty
      */
     @Override
@@ -326,7 +327,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
      *
      * @param size the size of this request
      * @return this builder
-     * @throws NullPointerException if the provided size is null
+     * @throws NullPointerException     if the provided size is null
      * @throws IllegalArgumentException if a dimension is less than 0
      */
     @Override
@@ -351,6 +352,98 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
         resetWidth();
         resetHeight();
         return this;
+    }
+
+    /**
+     * Returns the avatar key this request will use.
+     *
+     * @return the avatar key this request will use
+     */
+    @Override
+    public String getAvatarKey() {
+        return avatarKey;
+    }
+
+    /**
+     * Returns the image sets this request can use.
+     *
+     * @return the image sets this request can use
+     */
+    @Override
+    public Collection<ImageSet> getImageSets() {
+        return ImmutableList.copyOf(imageSets);
+    }
+
+    /**
+     * Returns the background sets this request can use.
+     *
+     * @return the background sets this request can use
+     */
+    @Override
+    public Collection<BackgroundSet> getBackgroundSets() {
+        return ImmutableList.copyOf(backgroundImageSets);
+    }
+
+    /**
+     * Returns the width the resulting image should be of.
+     *
+     * @return the width the resulting image should be of
+     */
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    /**
+     * Returns the height the resulting image should be of.
+     *
+     * @return the height the resulting image should be of
+     */
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
+    /**
+     * Returns the Gravatar mode for this request.
+     *
+     * @return the Gravatar mode for this request
+     */
+    @Override
+    public UseGravatar getUseGravatar() {
+        return useGravatar;
+    }
+
+    /**
+     * Returns whether the image extension should be ignored when constructing
+     * the RoboHash avatar based on the avatar key.
+     *
+     * @return whether the image extension should be ignored when constructing
+     * the RoboHash avatar based on the avatar key
+     */
+    @Override
+    public boolean shouldIgnoreExtension() {
+        return ignoreExtension;
+    }
+
+    /**
+     * Returns the image extension to use for this request.
+     *
+     * @return the image extension to use for this request
+     */
+    @Override
+    public ImageExtension getImageExtension() {
+        return imageExtension;
+    }
+
+    /**
+     * Returns whether safe mode is enabled when building the url.
+     *
+     * @return whether safe mode is enabled when building the url
+     */
+    @Override
+    public boolean isSafeUrlMode() {
+        return safeUrlMode;
     }
 
     /**
