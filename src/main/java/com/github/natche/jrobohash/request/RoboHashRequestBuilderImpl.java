@@ -470,7 +470,16 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
 
     @Override
     public int hashCode() {
-        return 0;
+        int ret = avatarKey.hashCode();
+        ret += 31 * imageSets.hashCode();
+        ret += 31 * backgroundImageSets.hashCode();
+        ret += 31 * Integer.hashCode(width);
+        ret += 31 * Integer.hashCode(height);
+        ret += 31 * useGravatar.hashCode();
+        ret += 31 * Boolean.hashCode(ignoreExtension);
+        ret += 31 * imageExtension.hashCode();
+        ret += 31 * Boolean.hashCode(safeUrlMode);
+        return ret;
     }
 
     @Override
@@ -482,7 +491,15 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
         }
 
         RoboHashRequestBuilderImpl other = (RoboHashRequestBuilderImpl) o;
-        return false;
+        return other.avatarKey.equals(avatarKey)
+                && other.imageSets.equals(imageSets)
+                && other.backgroundImageSets.equals(backgroundImageSets)
+                && other.width == width
+                && other.height == height
+                && other.useGravatar == useGravatar
+                && other.ignoreExtension == ignoreExtension
+                && other.imageExtension == imageExtension
+                && other.safeUrlMode == safeUrlMode;
     }
 
     @Override
