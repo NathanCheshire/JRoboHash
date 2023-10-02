@@ -20,17 +20,60 @@ import java.util.List;
  * @since 1.0
  */
 public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
+    /**
+     * The default width for a RoboHash avatar image.
+     */
     public static final int DEFAULT_WIDTH = 300;
+
+    /**
+     * The default height for a RoboHash avatar image.
+     */
     public static final int DEFAULT_HEIGHT = 300;
 
+    /**
+     * The avatar key for this RoboHash avatar image.
+     */
     private final String avatarKey;
+
+    /**
+     * The image sets this request can use.
+     */
     private final ArrayList<ImageSet> imageSets;
+
+    /**
+     * The background image sets this request can use.
+     */
     private final ArrayList<BackgroundSet> backgroundImageSets;
+
+    /**
+     * The width of this request.
+     */
     private int width;
+
+    /**
+     * The height of this request.
+     */
     private int height;
+
+    /**
+     * The Gravatar mode of this request.
+     */
     private UseGravatar useGravatar;
+
+    /**
+     * Whether the image extension should be ignored when computing the avatar for this request.
+     */
     private boolean ignoreExtension;
+
+    /**
+     * The image extension for this request.
+     */
     private ImageExtension imageExtension;
+
+    /**
+     * Whether safe URL mode should be enabled meaning if the avatar key
+     * contains invalid URL characters, they will be encoded.
+     */
     private boolean safeUrlMode;
 
     /**
@@ -468,6 +511,11 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
         return this;
     }
 
+    /**
+     * Returns a hashcode for this {@link RoboHashRequestBuilderImpl}.
+     *
+     * @return a hashcode for this {@link RoboHashRequestBuilderImpl}
+     */
     @Override
     public int hashCode() {
         int ret = avatarKey.hashCode();
@@ -482,6 +530,12 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
         return ret;
     }
 
+    /**
+     * Returns whether the provided object equals {@code this} object or is equal as defined by an equivalence relation.
+     *
+     * @param o the other object to compare against {@code this}
+     * @return whether the provided object equals {@code this} object or is equal as defined by an equivalence relation
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -502,8 +556,23 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
                 && other.safeUrlMode == safeUrlMode;
     }
 
+    /**
+     * Returns a {@link String} representation for this {@link RoboHashRequestBuilderImpl}
+     *
+     * @return a {@link String} representation for this {@link RoboHashRequestBuilderImpl}
+     */
     @Override
     public String toString() {
-        return "";
+        return "RoboHashRequestBuilderImpl{"
+                + "avatarKey=\"" + avatarKey + "\""
+                + ", imageSets=" + imageSets
+                + ", backgroundImageSets=" + backgroundImageSets
+                + ", width=" + width
+                + ", height=" + height
+                + ", useGravatar=" + useGravatar
+                + ", ignoreExtension=" + ignoreExtension
+                + ", imageExtension=" + imageExtension
+                + ", safeUrlMode=" + safeUrlMode
+                + '}';
     }
 }
