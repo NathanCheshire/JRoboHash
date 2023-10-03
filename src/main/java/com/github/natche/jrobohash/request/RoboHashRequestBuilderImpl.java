@@ -398,9 +398,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     }
 
     /**
-     * Returns the avatar key this request will use.
-     *
-     * @return the avatar key this request will use
+     * {@inheritDoc}
      */
     @Override
     public String getAvatarKey() {
@@ -408,9 +406,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     }
 
     /**
-     * Returns the image sets this request can use.
-     *
-     * @return the image sets this request can use
+     * {@inheritDoc}
      */
     @Override
     public Collection<ImageSet> getImageSets() {
@@ -418,9 +414,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     }
 
     /**
-     * Returns the background sets this request can use.
-     *
-     * @return the background sets this request can use
+     * {@inheritDoc}
      */
     @Override
     public Collection<BackgroundSet> getBackgroundSets() {
@@ -428,9 +422,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     }
 
     /**
-     * Returns the width the resulting image should be of.
-     *
-     * @return the width the resulting image should be of
+     * {@inheritDoc}
      */
     @Override
     public int getWidth() {
@@ -438,9 +430,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     }
 
     /**
-     * Returns the height the resulting image should be of.
-     *
-     * @return the height the resulting image should be of
+     * {@inheritDoc}
      */
     @Override
     public int getHeight() {
@@ -448,9 +438,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     }
 
     /**
-     * Returns the Gravatar mode for this request.
-     *
-     * @return the Gravatar mode for this request
+     * {@inheritDoc}
      */
     @Override
     public UseGravatar getUseGravatar() {
@@ -458,21 +446,16 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     }
 
     /**
-     * Returns whether the image extension should be ignored when constructing
-     * the RoboHash avatar based on the avatar key.
-     *
-     * @return whether the image extension should be ignored when constructing
-     * the RoboHash avatar based on the avatar key
+     * {@inheritDoc}
      */
     @Override
     public boolean shouldIgnoreExtension() {
         return ignoreExtension;
     }
 
+
     /**
-     * Returns the image extension to use for this request.
-     *
-     * @return the image extension to use for this request
+     * {@inheritDoc}
      */
     @Override
     public ImageExtension getImageExtension() {
@@ -480,9 +463,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     }
 
     /**
-     * Returns whether safe mode is enabled when building the url.
-     *
-     * @return whether safe mode is enabled when building the url
+     * {@inheritDoc}
      */
     @Override
     public boolean isSafeUrlMode() {
