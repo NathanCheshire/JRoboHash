@@ -177,14 +177,69 @@ public interface RoboHashRequestBuilder {
      */
     RoboHashRequestBuilder resetSize();
 
+    /**
+     * Returns the avatar key this request will use.
+     *
+     * @return the avatar key this request will use
+     */
     String getAvatarKey();
+
+    /**
+     * Returns the image sets this request can use.
+     *
+     * @return the image sets this request can use
+     */
     Collection<ImageSet> getImageSets();
+
+    /**
+     * Returns the background sets this request can use.
+     *
+     * @return the background sets this request can use
+     */
     Collection<BackgroundSet> getBackgroundSets();
+
+    /**
+     * Returns the width the resulting image should be of.
+     *
+     * @return the width the resulting image should be of
+     */
     int getWidth();
+
+    /**
+     * Returns the height the resulting image should be of.
+     *
+     * @return the height the resulting image should be of
+     */
     int getHeight();
+
+    /**
+     * Returns the Gravatar mode for this request.
+     *
+     * @return the Gravatar mode for this request
+     */
     UseGravatar getUseGravatar();
+
+    /**
+     * Returns whether the image extension should be ignored when constructing
+     * the RoboHash avatar based on the avatar key.
+     *
+     * @return whether the image extension should be ignored when constructing
+     * the RoboHash avatar based on the avatar key
+     */
     boolean shouldIgnoreExtension();
+
+    /**
+     * Returns the image extension to use for this request.
+     *
+     * @return the image extension to use for this request
+     */
     ImageExtension getImageExtension();
+
+    /**
+     * Returns whether safe mode is enabled when building the url.
+     *
+     * @return whether safe mode is enabled when building the url
+     */
     default boolean isSafeUrlMode() {
         return false;
     }
