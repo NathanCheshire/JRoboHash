@@ -63,27 +63,19 @@ public interface RoboHashRequestBuilder {
     RoboHashRequestBuilder clearImageSets();
 
     /**
-     * Adds the provided background set to the list of sets this request can use.
+     * Sets the provided background as the background set this request can use.
      *
-     * @param backgroundSet the background set to add
+     * @param backgroundSet the background set to use
      * @return this builder
      */
-    RoboHashRequestBuilder addBackgroundSet(BackgroundSet backgroundSet);
+    RoboHashRequestBuilder setBackgroundSet(BackgroundSet backgroundSet);
 
     /**
-     * Removes the provided background set from the list of sets this request can use.
-     *
-     * @param backgroundSet the background set to remove
-     * @return this builder
-     */
-    RoboHashRequestBuilder removeBackgroundSet(BackgroundSet backgroundSet);
-
-    /**
-     * Removes all background sets this request can use and sets the default, that of {@link BackgroundSet#ANY}.
+     * Resets the background image set to the default, that of {@link BackgroundSet#ANY}.
      *
      * @return this builder
      */
-    RoboHashRequestBuilder clearBackgroundSets();
+    RoboHashRequestBuilder resetBackgroundSet();
 
     /**
      * Sets the extension this request should return.
@@ -192,11 +184,11 @@ public interface RoboHashRequestBuilder {
     Collection<ImageSet> getImageSets();
 
     /**
-     * Returns the background sets this request can use.
+     * Returns the background set this request can use.
      *
-     * @return the background sets this request can use
+     * @return the background set this request can use
      */
-    Collection<BackgroundSet> getBackgroundSets();
+    BackgroundSet getBackgroundSet();
 
     /**
      * Returns the width the resulting image should be of.

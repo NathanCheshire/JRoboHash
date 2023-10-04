@@ -43,7 +43,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     /**
      * The background image sets this request can use.
      */
-    private final ArrayList<BackgroundSet> backgroundImageSets;
+    private BackgroundSet backgroundImageSet;
 
     /**
      * The width of this request.
@@ -104,7 +104,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
 
         this.avatarKey = avatarKey;
         imageSets = new ArrayList<>(List.of(ImageSet.ANY));
-        backgroundImageSets = new ArrayList<>(List.of(BackgroundSet.ANY));
+        backgroundImageSet = BackgroundSet.ANY;
         width = DEFAULT_WIDTH;
         height = DEFAULT_HEIGHT;
         useGravatar = UseGravatar.NO;
@@ -203,42 +203,26 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     }
 
     /**
-     * Adds the provided background set to the background sets this request can use.
+     * Sets the provided background as the background set this request can use.
      *
-     * @param backgroundSet the background set to add
+     * @param backgroundSet the background set to use
      * @return this builder
-     * @throws NullPointerException if the provided background set is null
      */
     @Override
-    public RoboHashRequestBuilder addBackgroundSet(BackgroundSet backgroundSet) {
+    public RoboHashRequestBuilder setBackgroundSet(BackgroundSet backgroundSet) {
         Preconditions.checkNotNull(backgroundSet);
-        backgroundImageSets.add(backgroundSet);
+        this.backgroundImageSet = backgroundSet;
         return this;
     }
 
     /**
-     * Removes the provided background set from the background sets this request can use.
-     *
-     * @param backgroundSet the background set to remove
-     * @return this builder
-     * @throws NullPointerException if the provided background set is null
-     */
-    @Override
-    public RoboHashRequestBuilder removeBackgroundSet(BackgroundSet backgroundSet) {
-        Preconditions.checkNotNull(backgroundSet);
-        backgroundImageSets.remove(backgroundSet);
-        return this;
-    }
-
-    /**
-     * Clears the background image sets this request can use and reset to the default of {@link BackgroundSet#ANY}.
+     * Resets the background image set to the default, that of {@link BackgroundSet#ANY}.
      *
      * @return this builder
      */
     @Override
-    public RoboHashRequestBuilder clearBackgroundSets() {
-        backgroundImageSets.clear();
-        backgroundImageSets.add(BackgroundSet.ANY);
+    public RoboHashRequestBuilder resetBackgroundSet() {
+        backgroundImageSet = BackgroundSet.ANY;
         return this;
     }
 
@@ -417,8 +401,8 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
      * {@inheritDoc}
      */
     @Override
-    public Collection<BackgroundSet> getBackgroundSets() {
-        return ImmutableList.copyOf(backgroundImageSets);
+    public BackgroundSet getBackgroundSet() {
+        return backgroundImageSet;
     }
 
     /**
@@ -501,7 +485,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     public int hashCode() {
         int ret = avatarKey.hashCode();
         ret += 31 * imageSets.hashCode();
-        ret += 31 * backgroundImageSets.hashCode();
+        ret += 31 * backgroundImageSet.hashCode();
         ret += 31 * Integer.hashCode(width);
         ret += 31 * Integer.hashCode(height);
         ret += 31 * useGravatar.hashCode();
@@ -528,7 +512,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
         RoboHashRequestBuilderImpl other = (RoboHashRequestBuilderImpl) o;
         return other.avatarKey.equals(avatarKey)
                 && other.imageSets.equals(imageSets)
-                && other.backgroundImageSets.equals(backgroundImageSets)
+                && other.backgroundImageSet == backgroundImageSet
                 && other.width == width
                 && other.height == height
                 && other.useGravatar == useGravatar
@@ -547,7 +531,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
         return "RoboHashRequestBuilderImpl{"
                 + "avatarKey=\"" + avatarKey + "\""
                 + ", imageSets=" + imageSets
-                + ", backgroundImageSets=" + backgroundImageSets
+                + ", backgroundImageSet=" + backgroundImageSet
                 + ", width=" + width
                 + ", height=" + height
                 + ", useGravatar=" + useGravatar

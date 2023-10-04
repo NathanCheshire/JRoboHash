@@ -1,17 +1,36 @@
 package com.github.natche.jrobohash.request;
 
+import com.github.natche.jrobohash.enums.BackgroundSet;
+import com.github.natche.jrobohash.enums.ImageSet;
+import com.github.natche.jrobohash.enums.UrlParameter;
 import com.github.natche.jrobohash.util.GeneralUtils;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
 import java.io.File;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 /**
  * The default implementation of a {@link RoboHashRequestHandler}.
  */
 public class RoboHashRequestHandlerImpl implements RoboHashRequestHandler {
+    private static final String PROTOCOL = "https";
+    private static final String DOMAIN = "robohash.org";
+
+    private String getImageSetsUrlParameter(RoboHashRequestBuilder builder) {
+        ImmutableList<ImageSet> imageSets = ImmutableList.copyOf(builder.getImageSets());
+        if (imageSets.size() > 1) {
+            return UrlParameter.IMAGE_SETS.encodeUrlParameter(
+                    imageSets.stream().map(ImageSet::getUrlParameterName).collect(
+                            Collectors.joining(",")), true);
+        } else {
+            return imageSets.get(0).constructUrlParameter(true);
+        }
+    }
+
     /**
      * Builds and returns the request URL based on the current state of a {@link RoboHashRequestBuilder}.
      *
@@ -23,7 +42,14 @@ public class RoboHashRequestHandlerImpl implements RoboHashRequestHandler {
     public String buildRequestUrl(RoboHashRequestBuilder builder) {
         Preconditions.checkNotNull(builder);
 
-        return null;
+        StringBuilder urlBuilder = new StringBuilder();
+        urlBuilder.append(PROTOCOL);
+        urlBuilder.append("://");
+        urlBuilder.append(DOMAIN);
+        urlBuilder.append(getImageSetsUrlParameter(builder));
+        urlBuilder.append(UrlParameter.BACKGROUND_SET.encodeUrlParameter(builder.getBackgroundSet().getSetName(), false));
+
+        return urlBuilder.toString();
     }
 
     /**
@@ -45,8 +71,8 @@ public class RoboHashRequestHandlerImpl implements RoboHashRequestHandler {
      * Constructs a URL from the provided builder and saves the image to the provided file.
      *
      * @param builder the builder to construct the URL from
-     * @param file the file to save the resulting image to
-     * @throws NullPointerException if the provided builder or file are null
+     * @param file    the file to save the resulting image to
+     * @throws NullPointerException     if the provided builder or file are null
      * @throws IllegalArgumentException if the provided file exists or is a directory
      */
     public void saveToFile(RoboHashRequestBuilder builder, File file) {
