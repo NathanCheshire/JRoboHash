@@ -1,6 +1,5 @@
 package com.github.natche.jrobohash.request;
 
-import com.github.natche.jrobohash.enums.BackgroundSet;
 import com.github.natche.jrobohash.enums.ImageSet;
 import com.github.natche.jrobohash.enums.UrlParameter;
 import com.github.natche.jrobohash.util.GeneralUtils;
@@ -10,7 +9,6 @@ import com.google.common.collect.ImmutableList;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.Collection;
 import java.util.stream.Collectors;
 
 /**
@@ -24,8 +22,9 @@ public class RoboHashRequestHandlerImpl implements RoboHashRequestHandler {
         ImmutableList<ImageSet> imageSets = ImmutableList.copyOf(builder.getImageSets());
         if (imageSets.size() > 1) {
             return UrlParameter.IMAGE_SETS.encodeUrlParameter(
-                    imageSets.stream().map(ImageSet::getUrlParameterName).collect(
-                            Collectors.joining(",")), true);
+                    imageSets.stream()
+                            .map(ImageSet::getUrlParameterName)
+                            .collect(Collectors.joining(",")), true);
         } else {
             return imageSets.get(0).constructUrlParameter(true);
         }
@@ -47,7 +46,7 @@ public class RoboHashRequestHandlerImpl implements RoboHashRequestHandler {
         urlBuilder.append("://");
         urlBuilder.append(DOMAIN);
         urlBuilder.append(getImageSetsUrlParameter(builder));
-        urlBuilder.append(UrlParameter.BACKGROUND_SET.encodeUrlParameter(builder.getBackgroundSet().getSetName(), false));
+        urlBuilder.append(UrlParameter.BACKGROUND_SET.encodeUrlParameter(builder.getBackgroundSet().getSetName()));
 
         return urlBuilder.toString();
     }
