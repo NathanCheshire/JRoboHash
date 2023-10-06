@@ -2,6 +2,7 @@ package com.github.natche.jrobohash.request;
 
 import com.github.natche.jrobohash.enums.ImageSet;
 import com.github.natche.jrobohash.enums.UrlParameter;
+import com.github.natche.jrobohash.enums.UseGravatar;
 import com.github.natche.jrobohash.util.GeneralUtils;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
@@ -41,12 +42,16 @@ public class RoboHashRequestHandlerImpl implements RoboHashRequestHandler {
     public String buildRequestUrl(RoboHashRequestBuilder builder) {
         Preconditions.checkNotNull(builder);
 
+        String COLON_SLASH_SLASH = "://";
         StringBuilder urlBuilder = new StringBuilder();
         urlBuilder.append(PROTOCOL);
-        urlBuilder.append("://");
+        urlBuilder.append(COLON_SLASH_SLASH);
         urlBuilder.append(DOMAIN);
+        urlBuilder.append("/").append(builder.getAvatarKey()).append("/");
         urlBuilder.append(getImageSetsUrlParameter(builder));
         urlBuilder.append(UrlParameter.BACKGROUND_SET.encodeUrlParameter(builder.getBackgroundSet().getSetName()));
+        urlBuilder.append(UrlParameter.SIZE.encodeUrlParameter(builder.getWidth() + "," + builder.getHeight()));
+        urlBuilder.append(builder.getUseGravatar().constructUrlParameter(false));
 
         return urlBuilder.toString();
     }
