@@ -2,14 +2,16 @@ package com.github.natche.jrobohash.request;
 
 import com.github.natche.jrobohash.enums.ImageSet;
 import com.github.natche.jrobohash.enums.UrlParameter;
-import com.github.natche.jrobohash.enums.UseGravatar;
+import com.github.natche.jrobohash.exceptions.JRoboHashException;
 import com.github.natche.jrobohash.util.GeneralUtils;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.stream.Collectors;
 
 /**
@@ -47,7 +49,10 @@ public class RoboHashRequestHandlerImpl implements RoboHashRequestHandler {
         urlBuilder.append(PROTOCOL);
         urlBuilder.append(COLON_SLASH_SLASH);
         urlBuilder.append(DOMAIN);
-        urlBuilder.append("/").append(builder.getAvatarKey()).append("/");
+        urlBuilder.append("/");
+        String avatarKey = builder.getImageExtension().setAsImageExtension(builder.getAvatarKey());
+        urlBuilder.append(avatarKey);
+        urlBuilder.append("/");
         urlBuilder.append(getImageSetsUrlParameter(builder));
         urlBuilder.append(UrlParameter.BACKGROUND_SET.encodeUrlParameter(builder.getBackgroundSet().getSetName()));
         urlBuilder.append(UrlParameter.SIZE.encodeUrlParameter(builder.getWidth() + "," + builder.getHeight()));
@@ -87,8 +92,11 @@ public class RoboHashRequestHandlerImpl implements RoboHashRequestHandler {
 
         BufferedImage image = getImage(builder);
 
-        // todo save image to
-
-        throw new RuntimeException("Not Implemented");
+        try {
+            ImageIO.write(image, builder.getImageExtension().getExtensionWithPeriod(), file);
+        } catch (IOException e) {
+            throw new JRoboHashException(
+                    "Failed to write image to file: " + file.getName() + ", error: " + e.getMessage());
+        }
     }
 }
