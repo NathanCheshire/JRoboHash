@@ -15,6 +15,11 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class GeneralUtilsTest {
     /**
+     * Creates a new instance of this class for testing purposes.
+     */
+    GeneralUtilsTest() {}
+
+    /**
      * Test to ensure the utility class cannot be instantiated.
      */
     @Test
