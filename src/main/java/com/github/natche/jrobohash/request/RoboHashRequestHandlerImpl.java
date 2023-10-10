@@ -55,7 +55,7 @@ public class RoboHashRequestHandlerImpl implements RoboHashRequestHandler {
         urlBuilder.append("/");
         urlBuilder.append(getImageSetsUrlParameter(builder));
         urlBuilder.append(UrlParameter.BACKGROUND_SET.encodeUrlParameter(builder.getBackgroundSet().getSetName()));
-        urlBuilder.append(UrlParameter.SIZE.encodeUrlParameter(builder.getWidth() + "," + builder.getHeight()));
+        urlBuilder.append(UrlParameter.SIZE.encodeUrlParameter(builder.getWidth() + "x" + builder.getHeight()));
         urlBuilder.append(builder.getUseGravatar().constructUrlParameter(false));
 
         return urlBuilder.toString();

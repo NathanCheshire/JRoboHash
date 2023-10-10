@@ -44,7 +44,7 @@ public final class GeneralUtils {
      */
     public static BufferedImage readBufferedImage(String url) {
         Preconditions.checkNotNull(url);
-        Preconditions.checkArgument(!url.isEmpty());
+        Preconditions.checkArgument(!url.trim().isEmpty());
 
         try {
             return ImageIO.read(new URL(url));
@@ -64,7 +64,7 @@ public final class GeneralUtils {
      */
     public static boolean isValidFilename(String filename) {
         Preconditions.checkNotNull(filename);
-        Preconditions.checkArgument(!filename.isEmpty());
+        Preconditions.checkArgument(!filename.trim().isEmpty());
 
         return filename.chars()
                 .mapToObj(c -> (char) c)
