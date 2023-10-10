@@ -75,7 +75,7 @@ public final class GeneralUtils {
      * Returns whether the provided input is valid to pass to RoboHash.
      *
      * @param input the input string to test for validity
-     * @return whether the provided input is valid to pass to RoboHash.
+     * @return whether the provided input is valid to pass to RoboHash
      * @throws NullPointerException     if the provided input is null
      * @throws IllegalArgumentException if the provided input is empty
      */
@@ -100,5 +100,4 @@ public final class GeneralUtils {
 
         return URLEncoder.encode(input, StandardCharsets.UTF_8);
     }
-
 }
