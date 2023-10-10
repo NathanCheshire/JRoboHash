@@ -1,5 +1,7 @@
 package com.github.natche.jrobohash.enums;
 
+import com.google.common.base.Preconditions;
+
 /**
  * The URL parameters a RoboHash request URL may contain.
  */
@@ -61,8 +63,13 @@ public enum UrlParameter {
      *
      * @param parameter the parameter to encode
      * @return the encoded URL parameter
+     * @throws NullPointerException if the provided parameter is null
+     * @throws IllegalArgumentException if the provided parameter is empty
      */
     public String encodeUrlParameter(String parameter) {
+        Preconditions.checkNotNull(parameter);
+        Preconditions.checkArgument(!parameter.trim().isEmpty());
+
         return encodeUrlParameter(parameter, false);
     }
 
@@ -74,8 +81,13 @@ public enum UrlParameter {
      * @param parameter        the parameter to encode
      * @param isFirstParameter whether this parameter is the first URL parameter in the query string section of the URL.
      * @return the encoded URL parameter
+     * @throws NullPointerException if the provided parameter is null
+     * @throws IllegalArgumentException if the provided parameter is empty
      */
     public String encodeUrlParameter(String parameter, boolean isFirstParameter) {
+        Preconditions.checkNotNull(parameter);
+        Preconditions.checkArgument(!parameter.trim().isEmpty());
+
         String prefix = isFirstParameter ? "?" : "&";
         return prefix + urlParameter + "=" + parameter;
     }

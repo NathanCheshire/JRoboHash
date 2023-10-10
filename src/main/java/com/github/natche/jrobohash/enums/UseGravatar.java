@@ -22,11 +22,15 @@ public enum UseGravatar {
 
     public String constructUrlParameter(boolean firstParameter) {
         if (this == UseGravatar.NO) return "";
-        return UrlParameter.USE_GRAVATAR.encodeUrlParameter(toString(), firstParameter);
+        return UrlParameter.USE_GRAVATAR.encodeUrlParameter(getUrlParameterRepresentation(), firstParameter);
     }
 
-    @Override
-    public String toString() {
+    /**
+     * Returns the url parameter representation for this use Gravatar.
+     *
+     * @return the url parameter representation for this use Gravatar
+     */
+    private String getUrlParameterRepresentation() {
         return switch (this) {
             case NO -> "no";
             case YES -> "yes";
