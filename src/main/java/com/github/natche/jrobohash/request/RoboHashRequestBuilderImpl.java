@@ -124,6 +124,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     public RoboHashRequestBuilder addImageSet(ImageSet imageSet) {
         Preconditions.checkNotNull(imageSet);
         imageSets.add(imageSet);
+        if (imageSet != ImageSet.ANY) imageSets.remove(ImageSet.ANY);
         return this;
     }
 

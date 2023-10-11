@@ -6,10 +6,7 @@ import com.github.natche.jrobohash.enums.ImageSet;
 import com.github.natche.jrobohash.enums.UseGravatar;
 
 import java.awt.*;
-import java.util.AbstractList;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 
 /**
  * The interface from which all implementations of a RoboHash request builder must inherit from.

@@ -20,10 +20,22 @@ import java.util.stream.Collectors;
 public class RoboHashRequestHandlerImpl implements RoboHashRequestHandler {
     private static final String PROTOCOL = "https";
     private static final String DOMAIN = "robohash.org";
+    private static final String COLON_SLASH_SLASH = "://";
 
+    /**
+     * Constructs the image sets url parameter part for the image sets the provided builder can use.
+     *
+     * @param builder the builder
+     * @return the url parameter string for the image sets
+     * @throws NullPointerException if the provided builder is null
+     */
     private String getImageSetsUrlParameter(RoboHashRequestBuilder builder) {
+        Preconditions.checkNotNull(builder);
+
+        // todo if any is in this, then use that
         ImmutableList<ImageSet> imageSets = ImmutableList.copyOf(builder.getImageSets());
         if (imageSets.size() > 1) {
+            // todo is just numbers if it's a list
             return UrlParameter.IMAGE_SETS.encodeUrlParameter(
                     imageSets.stream()
                             .map(ImageSet::getUrlParameterName)
@@ -44,7 +56,6 @@ public class RoboHashRequestHandlerImpl implements RoboHashRequestHandler {
     public String buildRequestUrl(RoboHashRequestBuilder builder) {
         Preconditions.checkNotNull(builder);
 
-        String COLON_SLASH_SLASH = "://";
         StringBuilder urlBuilder = new StringBuilder();
         urlBuilder.append(PROTOCOL);
         urlBuilder.append(COLON_SLASH_SLASH);
@@ -57,6 +68,9 @@ public class RoboHashRequestHandlerImpl implements RoboHashRequestHandler {
         urlBuilder.append(UrlParameter.BACKGROUND_SET.encodeUrlParameter(builder.getBackgroundSet().getSetName()));
         urlBuilder.append(UrlParameter.SIZE.encodeUrlParameter(builder.getWidth() + "x" + builder.getHeight()));
         urlBuilder.append(builder.getUseGravatar().constructUrlParameter(false));
+        urlBuilder.append(
+                UrlParameter.IGNORE_EXTENSION.encodeUrlParameter(String.valueOf(builder.shouldIgnoreExtension()),
+                        false));
 
         return urlBuilder.toString();
     }
