@@ -57,7 +57,7 @@ public interface RoboHashRequestBuilder {
      *
      * @return this builder
      */
-    RoboHashRequestBuilder clearImageSets();
+    RoboHashRequestBuilder resetImageSets();
 
     /**
      * Sets the provided background as the background set this request can use.

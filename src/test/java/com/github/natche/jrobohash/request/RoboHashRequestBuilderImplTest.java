@@ -7,6 +7,8 @@ import com.github.natche.jrobohash.enums.UseGravatar;
 import com.google.common.collect.ImmutableList;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -39,49 +41,147 @@ public class RoboHashRequestBuilderImplTest {
      */
     @Test
     void testAccessorsMutators() {
-        RoboHashRequestBuilderImpl impl = new RoboHashRequestBuilderImpl("robot", false);
-        assertEquals("robot", impl.getAvatarKey());
-        assertFalse(impl.isSafeUrlMode());
-        assertEquals(ImmutableList.of(ImageSet.ANY), impl.getImageSets());
-        assertEquals(BackgroundSet.ANY, impl.getBackgroundSet());
-        assertEquals(300, impl.getWidth());
-        assertEquals(300, impl.getHeight());
-        assertEquals(UseGravatar.NO, impl.getUseGravatar());
-        assertTrue(impl.shouldIgnoreExtension());
-        assertEquals(ImageExtension.PNG, impl.getImageExtension());
-        assertFalse(impl.isSafeUrlMode());
+        RoboHashRequestBuilderImpl builderOne = new RoboHashRequestBuilderImpl("robot", false);
+        assertEquals("robot", builderOne.getAvatarKey());
+        assertFalse(builderOne.isSafeUrlMode());
+        assertEquals(ImmutableList.of(ImageSet.ANY), builderOne.getImageSets());
+        assertEquals(BackgroundSet.ANY, builderOne.getBackgroundSet());
+        assertEquals(300, builderOne.getWidth());
+        assertEquals(300, builderOne.getHeight());
+        assertEquals(UseGravatar.NO, builderOne.getUseGravatar());
+        assertTrue(builderOne.shouldIgnoreExtension());
+        assertEquals(ImageExtension.PNG, builderOne.getImageExtension());
+        assertFalse(builderOne.isSafeUrlMode());
 
-        RoboHashRequestBuilderImpl impl2 = new RoboHashRequestBuilderImpl("robot", true);
+        RoboHashRequestBuilderImpl builderTwo = new RoboHashRequestBuilderImpl("robot", true);
 
-        impl2.setWidth(200);
-        assertEquals(200, impl2.getWidth());
+        builderTwo.setWidth(200);
+        assertEquals(200, builderTwo.getWidth());
 
-        impl2.setHeight(200);
-        assertEquals(200, impl2.getHeight());
+        builderTwo.setHeight(200);
+        assertEquals(200, builderTwo.getHeight());
 
-        impl2.addImageSet(ImageSet.DEFAULT);
-        impl2.addImageSet(ImageSet.MONSTERS);
-        impl2.addImageSet(ImageSet.SEXY_ROBOTS);
-        impl2.addImageSet(ImageSet.KITTENS);
-        impl2.addImageSet(ImageSet.HUMANS);
+        builderTwo.addImageSet(ImageSet.DEFAULT);
+        builderTwo.addImageSet(ImageSet.MONSTERS);
+        builderTwo.addImageSet(ImageSet.SEXY_ROBOTS);
+        builderTwo.addImageSet(ImageSet.KITTENS);
+        builderTwo.addImageSet(ImageSet.HUMANS);
         assertEquals(ImmutableList.of(
                 ImageSet.DEFAULT,
                 ImageSet.MONSTERS,
                 ImageSet.SEXY_ROBOTS,
                 ImageSet.KITTENS,
                 ImageSet.HUMANS
-        ), impl2.getImageSets());
+        ), builderTwo.getImageSets());
 
-        impl2.setBackgroundSet(BackgroundSet.SPIRAL_AND_PATTERNS);
-        assertEquals(BackgroundSet.SPIRAL_AND_PATTERNS, impl2.getBackgroundSet());
+        builderTwo.setBackgroundSet(BackgroundSet.SPIRAL_AND_PATTERNS);
+        assertEquals(BackgroundSet.SPIRAL_AND_PATTERNS, builderTwo.getBackgroundSet());
 
-        impl2.setUseGravatar(UseGravatar.HASHED);
-        assertEquals(UseGravatar.HASHED, impl2.getUseGravatar());
+        builderTwo.setUseGravatar(UseGravatar.HASHED);
+        assertEquals(UseGravatar.HASHED, builderTwo.getUseGravatar());
 
-        impl2.setIgnoreExtension(false);
-        assertFalse(impl2.shouldIgnoreExtension());
+        builderTwo.setIgnoreExtension(false);
+        assertFalse(builderTwo.shouldIgnoreExtension());
 
-        impl2.setImageExtension(ImageExtension.JPEG);
-        assertEquals(ImageExtension.JPEG, impl2.getImageExtension());
+        builderTwo.setImageExtension(ImageExtension.JPEG);
+        assertEquals(ImageExtension.JPEG, builderTwo.getImageExtension());
+    }
+
+    /**
+     * Tests for the mutator methods which reset states.
+     */
+    @Test
+    void testResettingMutators() {
+        RoboHashRequestBuilderImpl implementationOne = new RoboHashRequestBuilderImpl("key");
+
+        implementationOne.addImageSet(ImageSet.HUMANS);
+        assertEquals(ImmutableList.of(ImageSet.HUMANS), implementationOne.getImageSets());
+        implementationOne.resetImageSets();
+        assertEquals(ImmutableList.of(ImageSet.ANY), implementationOne.getImageSets());
+
+        implementationOne.setBackgroundSet(BackgroundSet.OUTSIDE);
+        assertEquals(BackgroundSet.OUTSIDE, implementationOne.getBackgroundSet());
+        implementationOne.resetBackgroundSet();
+        assertEquals(BackgroundSet.ANY, implementationOne.getBackgroundSet());
+
+        implementationOne.setImageExtension(ImageExtension.BITMAP);
+        assertEquals(ImageExtension.BITMAP, implementationOne.getImageExtension());
+        implementationOne.resetImageExtension();
+        assertEquals(ImageExtension.PNG, implementationOne.getImageExtension());
+
+        implementationOne.setIgnoreExtension(true);
+        assertTrue(implementationOne.shouldIgnoreExtension());
+        implementationOne.resetIgnoreExtension();
+        assertTrue(implementationOne.shouldIgnoreExtension());
+
+        implementationOne.setUseGravatar(UseGravatar.HASHED);
+        assertEquals(UseGravatar.HASHED, implementationOne.getUseGravatar());
+        implementationOne.resetUseGravatar();
+        assertEquals(UseGravatar.NO, implementationOne.getUseGravatar());
+
+        implementationOne.setWidth(5150);
+        assertEquals(5150, implementationOne.getWidth());
+        implementationOne.resetWidth();
+        assertEquals(RoboHashRequestBuilderImpl.DEFAULT_WIDTH, implementationOne.getWidth());
+
+        implementationOne.setHeight(5150);
+        assertEquals(5150, implementationOne.getHeight());
+        implementationOne.resetHeight();
+        assertEquals(RoboHashRequestBuilderImpl.DEFAULT_HEIGHT, implementationOne.getHeight());
+
+        implementationOne.setSize(new Dimension(5150, 5150));
+        assertEquals(5150, implementationOne.getWidth());
+        assertEquals(5150, implementationOne.getHeight());
+        implementationOne.resetSize();
+        assertEquals(RoboHashRequestBuilderImpl.DEFAULT_WIDTH, implementationOne.getWidth());
+        assertEquals(RoboHashRequestBuilderImpl.DEFAULT_HEIGHT, implementationOne.getHeight());
+    }
+
+    /**
+     * Tests for the to string method.
+     */
+    @Test
+    void testToString() {
+        RoboHashRequestBuilderImpl implementationOne = new RoboHashRequestBuilderImpl("key");
+        RoboHashRequestBuilderImpl differentOne = new RoboHashRequestBuilderImpl("other key");
+
+        assertEquals("RoboHashRequestBuilderImpl{avatarKey=\"key\", imageSets=[ANY],"
+                + " backgroundImageSet=ANY, width=300, height=300, useGravatar=NO,"
+                + " ignoreExtension=true, imageExtension=PNG, safeUrlMode=true}",
+                implementationOne.toString());
+        assertEquals("RoboHashRequestBuilderImpl{avatarKey=\"other key\","
+                + " imageSets=[ANY], backgroundImageSet=ANY, width=300, height=300,"
+                + " useGravatar=NO, ignoreExtension=true, imageExtension=PNG, safeUrlMode=true}",
+                differentOne.toString());
+    }
+
+    /**
+     * Tests for the equals method to ensure an equivalence relation is maintained.
+     */
+    @Test
+    void testEquals() {
+        RoboHashRequestBuilderImpl implementationOne = new RoboHashRequestBuilderImpl("key");
+        RoboHashRequestBuilderImpl implementationOneEqual = new RoboHashRequestBuilderImpl("key");
+        RoboHashRequestBuilderImpl differentOne = new RoboHashRequestBuilderImpl("other key");
+
+        assertEquals(implementationOne, implementationOne);
+        assertEquals(implementationOne, implementationOneEqual);
+        assertNotEquals(implementationOne, differentOne);
+        assertNotEquals(implementationOne, new Object());
+    }
+
+    /**
+     * Tests for the hashcode method to ensure an equivalence relation is maintained.
+     */
+    @Test
+    void testHashCode() {
+        RoboHashRequestBuilderImpl implementationOne = new RoboHashRequestBuilderImpl("key");
+        RoboHashRequestBuilderImpl implementationOneEqual = new RoboHashRequestBuilderImpl("key");
+        RoboHashRequestBuilderImpl differentOne = new RoboHashRequestBuilderImpl("other key");
+
+        assertEquals(implementationOne.hashCode(), implementationOne.hashCode());
+        assertEquals(implementationOne.hashCode(), implementationOneEqual.hashCode());
+        assertNotEquals(implementationOne.hashCode(), differentOne.hashCode());
+        assertNotEquals(implementationOne.hashCode(), new Object().hashCode());
     }
 }

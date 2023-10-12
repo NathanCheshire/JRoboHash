@@ -123,6 +123,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     @Override
     public RoboHashRequestBuilder addImageSet(ImageSet imageSet) {
         Preconditions.checkNotNull(imageSet);
+
         imageSets.add(imageSet);
         if (imageSet != ImageSet.ANY) imageSets.remove(ImageSet.ANY);
         return this;
@@ -137,6 +138,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     @Override
     public RoboHashRequestBuilder removeImageSet(ImageSet imageSet) {
         Preconditions.checkNotNull(imageSet);
+
         imageSets.remove(imageSet);
         return this;
     }
@@ -153,6 +155,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     public RoboHashRequestBuilder addImageSets(Collection<ImageSet> imageSets) {
         Preconditions.checkNotNull(imageSets);
         Preconditions.checkArgument(!imageSets.isEmpty());
+
         this.imageSets.addAll(imageSets);
         return this;
     }
@@ -169,6 +172,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     public RoboHashRequestBuilder removeImageSets(Collection<ImageSet> imageSets) {
         Preconditions.checkNotNull(imageSets);
         Preconditions.checkArgument(!imageSets.isEmpty());
+
         this.imageSets.removeAll(imageSets);
         return this;
     }
@@ -185,19 +189,20 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     public RoboHashRequestBuilder setImageSets(Collection<ImageSet> imageSets) {
         Preconditions.checkNotNull(imageSets);
         Preconditions.checkArgument(!imageSets.isEmpty());
+
         this.imageSets.clear();
         this.imageSets.addAll(imageSets);
         return this;
     }
 
     /**
-     * Clears the image sets to be used by this request and
+     * Resets the image sets to be used by this request and
      * resets to the default, that of {@link ImageSet#ANY}
      *
      * @return this builder
      */
     @Override
-    public RoboHashRequestBuilder clearImageSets() {
+    public RoboHashRequestBuilder resetImageSets() {
         imageSets.clear();
         imageSets.add(ImageSet.ANY);
         return this;
@@ -212,6 +217,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     @Override
     public RoboHashRequestBuilder setBackgroundSet(BackgroundSet backgroundSet) {
         Preconditions.checkNotNull(backgroundSet);
+
         this.backgroundImageSet = backgroundSet;
         return this;
     }
@@ -237,6 +243,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     @Override
     public RoboHashRequestBuilder setImageExtension(ImageExtension imageExtension) {
         Preconditions.checkNotNull(imageExtension);
+
         this.imageExtension = imageExtension;
         return this;
     }
@@ -285,6 +292,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     @Override
     public RoboHashRequestBuilder setUseGravatar(UseGravatar useGravatar) {
         Preconditions.checkNotNull(useGravatar);
+
         this.useGravatar = useGravatar;
         return this;
     }
@@ -310,6 +318,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     @Override
     public RoboHashRequestBuilder setWidth(int width) {
         Preconditions.checkArgument(width >= 0);
+
         this.width = width;
         return this;
     }
@@ -335,6 +344,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     @Override
     public RoboHashRequestBuilder setHeight(int height) {
         Preconditions.checkArgument(height >= 0);
+
         this.height = height;
         return this;
     }
@@ -361,12 +371,11 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     @Override
     public RoboHashRequestBuilder setSize(Dimension size) {
         Preconditions.checkNotNull(size);
-        int width = size.width;
-        int height = size.height;
-        Preconditions.checkArgument(width >= 0);
-        Preconditions.checkArgument(height >= 0);
-        this.width = width;
-        this.height = height;
+        Preconditions.checkArgument(size.width >= 0);
+        Preconditions.checkArgument(size.height >= 0);
+
+        this.width = size.width;
+        this.height = size.height;
         return this;
     }
 
