@@ -5,11 +5,13 @@ import com.github.natche.jrobohash.enums.ImageExtension;
 import com.github.natche.jrobohash.enums.ImageSet;
 import com.github.natche.jrobohash.enums.UseGravatar;
 import com.github.natche.jrobohash.exceptions.JRoboHashException;
-import com.github.natche.jrobohash.util.GeneralUtils;
+import com.google.common.base.Preconditions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -112,6 +114,33 @@ public class RoboHashRequestHandlerTest {
         // this is transitively tested by the below saveToFile test
     }
 
+    private boolean fileImagesEqual(File imageFile, File otherImageFile) {
+        Preconditions.checkNotNull(imageFile);
+        Preconditions.checkNotNull(otherImageFile);
+        Preconditions.checkArgument(imageFile.exists());
+        Preconditions.checkArgument(otherImageFile.exists());
+
+        try {
+            BufferedImage bufferedImage = ImageIO.read(imageFile);
+            BufferedImage otherBufferedImage = ImageIO.read(otherImageFile);
+
+            if (bufferedImage.getWidth() != otherBufferedImage.getWidth()
+                    || bufferedImage.getHeight() != otherBufferedImage.getHeight()) return false;
+
+            for (int x = 0; x < bufferedImage.getWidth(); x++) {
+                for (int y = 0; y < bufferedImage.getHeight(); y++) {
+                    if (otherBufferedImage.getRGB(x, y) != otherBufferedImage.getRGB(x, y)) {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        } catch (IOException e) {
+            throw new JRoboHashException(e);
+        }
+    }
+
     /**
      * Tests for the save to file method.
      */
@@ -145,26 +174,41 @@ public class RoboHashRequestHandlerTest {
         File builder1File = new File("tmp/builder" + builder.getImageExtension().getExtensionWithPeriod());
         assertDoesNotThrow(() -> RoboHashRequestHandler.saveToFile(builder, builder1File));
         assertTrue(builder1File.exists());
+        File builder1ComparisonFile = new File("./src/test/java/com/github/natche/jrobohash/images/builder.jpeg");
+        assertTrue(builder1ComparisonFile.exists());
+        assertTrue(fileImagesEqual(builder1File, builder1ComparisonFile));
         assertTrue(builder1File.delete());
 
         File builder2File = new File("tmp/builder" + builder2.getImageExtension().getExtensionWithPeriod());
         assertDoesNotThrow(() -> RoboHashRequestHandler.saveToFile(builder2, builder2File));
         assertTrue(builder2File.exists());
+        File builder2ComparisonFile = new File("./src/test/java/com/github/natche/jrobohash/images/builder2.jpeg");
+        assertTrue(builder2ComparisonFile.exists());
+        assertTrue(fileImagesEqual(builder2File, builder2ComparisonFile));
         assertTrue(builder2File.delete());
 
         File builder3File = new File("tmp/builder" + builder3.getImageExtension().getExtensionWithPeriod());
         assertDoesNotThrow(() -> RoboHashRequestHandler.saveToFile(builder3, builder3File));
         assertTrue(builder3File.exists());
+        File builder3ComparisonFile = new File("./src/test/java/com/github/natche/jrobohash/images/builder3.jpg");
+        assertTrue(builder3ComparisonFile.exists());
+        assertTrue(fileImagesEqual(builder3File, builder3ComparisonFile));
         assertTrue(builder3File.delete());
 
         File builder4File = new File("tmp/builder" + builder4.getImageExtension().getExtensionWithPeriod());
         assertDoesNotThrow(() -> RoboHashRequestHandler.saveToFile(builder4, builder4File));
         assertTrue(builder4File.exists());
+        File builder4ComparisonFile = new File("./src/test/java/com/github/natche/jrobohash/images/builder4.png");
+        assertTrue(builder4ComparisonFile.exists());
+        assertTrue(fileImagesEqual(builder4File, builder4ComparisonFile));
         assertTrue(builder4File.delete());
 
         File builder5File = new File("tmp/builder" + builder5.getImageExtension().getExtensionWithPeriod());
         assertDoesNotThrow(() -> RoboHashRequestHandler.saveToFile(builder5, builder5File));
         assertTrue(builder5File.exists());
+        File builder5ComparisonFile = new File("./src/test/java/com/github/natche/jrobohash/images/builder5.png");
+        assertTrue(builder5ComparisonFile.exists());
+        assertTrue(fileImagesEqual(builder5File, builder5ComparisonFile));
         assertTrue(builder5File.delete());
 
         assertTrue(tmpDir.delete());
