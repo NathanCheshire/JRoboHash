@@ -4,8 +4,8 @@ import com.google.common.base.Preconditions;
 
 /**
  * The image extensions supported by the RoboHash API. If, for some reason, an invalid image
- * extension makes its way to the RoboHash servers, an image named with the provided invalid
- * extension will be returned but the underlying image will be of {@link #PNG} format.
+ * extension is provided in the request URL, RoboHash will return an image named with the provided
+ * invalid extension but the underlying image will be of {@link #PNG} format.
  */
 public enum ImageExtension {
     /**
@@ -19,7 +19,7 @@ public enum ImageExtension {
     JPEG("jpeg"),
 
     /**
-     * The PNG extension.
+     * The PNG extension for lossless compression.
      */
     PNG("png"),
 
@@ -54,7 +54,7 @@ public enum ImageExtension {
 
     /**
      * Adds this extension and period as a suffix to the provided string.
-     * For example, providing "BartSimpson" will return "BartSimpson.jpg" for {@link #JPG}.
+     * For example, providing "BartSimpson" and {@link #JPG} will return "BartSimpson.jpg".
      *
      * @param prefix the prefix for this image extension
      * @return the prefix followed by a period and image extension
@@ -70,6 +70,8 @@ public enum ImageExtension {
 
     /**
      * Sets the extension of the provided filename to this extension.
+     * Note, if a period is contained in the filename provided, the text will be split at the last
+     * period and the text from the last period all the way to the end will be replaced with this extension.
      *
      * @param filename the filename possibly containing an extension which will be stripped away
      * @return the provided filename with this extension as the extension for the filename
@@ -80,8 +82,11 @@ public enum ImageExtension {
         Preconditions.checkNotNull(filename);
         Preconditions.checkArgument(!filename.trim().isEmpty());
 
-        return filename.lastIndexOf(".") != -1
-                ? filename.substring(0, filename.lastIndexOf(".")) + getExtensionWithPeriod()
+        int lastPeriodIndex = filename.lastIndexOf(".");
+        boolean containsPeriod = lastPeriodIndex != -1;
+
+        return containsPeriod
+                ? filename.substring(0, lastPeriodIndex) + getExtensionWithPeriod()
                 : filename + getExtensionWithPeriod();
     }
 }

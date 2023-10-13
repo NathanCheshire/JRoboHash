@@ -12,12 +12,15 @@ public enum UrlParameter {
     IMAGE_EXTENSION(""),
 
     /**
-     * Whether the request should attempt to find a Gravatar image.
+     * Whether the request should attempt to find a Gravatar image for the provided avatar key.
+     * The avatar key can be the Gravatar email hashed or non-hashed via
+     * {@link UseGravatar#HASHED} and {@link UseGravatar#YES} respectively.
      */
     USE_GRAVATAR("gravatar"),
 
     /**
      * Whether the extension of the requested image should be ignored in the computed hash.
+     * Setting this to false will result in different images for equal avatar keys with different image extensions.
      */
     IGNORE_EXTENSION("ignoreext"),
 
@@ -58,7 +61,7 @@ public enum UrlParameter {
 
     /**
      * Returns an encoded URL parameter for the provided text and this URL parameter.
-     * For example, if "1,2,3" and true are provided, and this {@link UrlParameter} is
+     * For example, if "1,2,3" is provided and this {@link UrlParameter} is
      * of type {@link #IMAGE_SETS} then "&sets=1,2,3" would be returned.
      *
      * @param parameter the parameter to encode
@@ -75,11 +78,11 @@ public enum UrlParameter {
 
     /**
      * Returns an encoded URL parameter for the provided text and this URL parameter.
-     * For example, if "1,2,3" and true are provided, and this {@link UrlParameter} is
-     * of type {@link #IMAGE_SETS} then "?sets=1,2,3" or "&sets=1,2,3" would be returned.
+     * For example, if "1,2,3" and {@code true} are provided, and this {@link UrlParameter} is
+     * of type {@link #IMAGE_SETS} then "?sets=1,2,3" would be returned.
      *
      * @param parameter        the parameter to encode
-     * @param isFirstParameter whether this parameter is the first URL parameter in the query string section of the URL.
+     * @param isFirstParameter whether this parameter is the first URL parameter in the query string
      * @return the encoded URL parameter
      * @throws NullPointerException if the provided parameter is null
      * @throws IllegalArgumentException if the provided parameter is empty
