@@ -18,43 +18,13 @@ import java.util.stream.Collectors;
  * A handler for accepting {@link RoboHashRequestBuilder}s.
  */
 public class RoboHashRequestHandler {
-    private static final String PROTOCOL = "https";
-    private static final String DOMAIN = "robohash.org";
-    private static final String COLON_SLASH_SLASH = "://";
+    private static final String DOMAIN_HEADER = "https://robohash.org/";
 
     /**
      * Suppress default constructor to prevent instantiation via reflection.
      */
     private RoboHashRequestHandler() {
-        throw new AssertionError("Cannot create instances of RobohashRequestHandlerImpl");
-    }
-
-    /**
-     * Constructs the image sets url parameter part for the image sets the provided builder can use.
-     *
-     * @param builder the builder
-     * @return the url parameter string for the image sets
-     * @throws NullPointerException if the provided builder is null
-     */
-    private static String getImageSetsUrlParameter(RoboHashRequestBuilder builder) {
-        Preconditions.checkNotNull(builder);
-
-        ImmutableList<ImageSet> imageSets = ImmutableList.copyOf(builder.getImageSets());
-        if (imageSets.contains(ImageSet.ANY)) {
-            return ImageSet.ANY.constructUrlParameter(true);
-        } else if (imageSets.size() > 1) {
-            return UrlParameter.IMAGE_SETS.encodeUrlParameter(
-                    imageSets.stream()
-                            .map(ImageSet::getListUrlParameterName)
-                            .collect(Collectors.joining(",")), true);
-        } else {
-            return imageSets.get(0).constructUrlParameter(true);
-        }
-    }
-
-    private static String constructSizeParameter(RoboHashRequestBuilder builder) {
-        String size = builder.getWidth() + "x" + builder.getHeight();
-        return UrlParameter.SIZE.encodeUrlParameter(size);
+        throw new AssertionError("Cannot create instances of RobohashRequestHandler");
     }
 
     /**
@@ -68,10 +38,7 @@ public class RoboHashRequestHandler {
         Preconditions.checkNotNull(builder);
 
         StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder.append(PROTOCOL);
-        urlBuilder.append(COLON_SLASH_SLASH);
-        urlBuilder.append(DOMAIN);
-        urlBuilder.append("/");
+        urlBuilder.append(DOMAIN_HEADER);
         String avatarKey = builder.getImageExtension().setAsImageExtension(builder.getAvatarKey());
         urlBuilder.append(avatarKey);
         urlBuilder.append(getImageSetsUrlParameter(builder));
@@ -110,16 +77,48 @@ public class RoboHashRequestHandler {
     public static void saveToFile(RoboHashRequestBuilder builder, File file) {
         Preconditions.checkNotNull(builder);
         Preconditions.checkNotNull(file);
-        Preconditions.checkArgument(file.isFile());
+        Preconditions.checkArgument(!file.isDirectory());
         Preconditions.checkArgument(!file.exists());
 
         BufferedImage image = getImage(builder);
 
         try {
-            ImageIO.write(image, builder.getImageExtension().getExtensionWithPeriod(), file);
+            ImageIO.write(image, builder.getImageExtension().getExtension(), file);
         } catch (IOException e) {
+            e.printStackTrace();
             throw new JRoboHashException(
                     "Failed to write image to file: " + file.getName() + ", error: " + e.getMessage());
         }
+    }
+
+    /**
+     * Constructs the image sets url parameter part for the image sets the provided builder can use.
+     *
+     * @param builder the builder
+     * @return the url parameter string for the image sets
+     */
+    private static String getImageSetsUrlParameter(RoboHashRequestBuilder builder) {
+        ImmutableList<ImageSet> imageSets = ImmutableList.copyOf(builder.getImageSets());
+        if (imageSets.contains(ImageSet.ANY)) {
+            return ImageSet.ANY.constructUrlParameter(true);
+        } else if (imageSets.size() > 1) {
+            return UrlParameter.IMAGE_SETS.encodeUrlParameter(
+                    imageSets.stream()
+                            .map(ImageSet::getListUrlParameterName)
+                            .collect(Collectors.joining(",")), true);
+        } else {
+            return imageSets.get(0).constructUrlParameter(true);
+        }
+    }
+
+    /**
+     * Constructs the size parameter for the provided builder.
+     *
+     * @param builder the builder
+     * @return the size parameter for the provided builder
+     */
+    private static String constructSizeParameter(RoboHashRequestBuilder builder) {
+        String size = builder.getWidth() + "x" + builder.getHeight();
+        return UrlParameter.SIZE.encodeUrlParameter(size);
     }
 }
