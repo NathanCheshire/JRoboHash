@@ -7,41 +7,47 @@ public enum ImageSet {
     /**
      * The default set.
      */
-    DEFAULT("set1"),
+    DEFAULT("set1", "1"),
 
     /**
      * The monsters set.
      */
-    MONSTERS("set2"),
+    MONSTERS("set2", "2"),
 
     /**
      * The sexy robots set (not my name choice).
      */
-    SEXY_ROBOTS("set3"),
+    SEXY_ROBOTS("set3", "3"),
 
     /**
      * The kittens set.
      */
-    KITTENS("set4"),
+    KITTENS("set4", "4"),
 
     /**
      * The human set for those afraid of the uprising.
      */
-    HUMANS("set5"),
+    HUMANS("set5", "5"),
 
     /**
      * Any set is valid and RoboHash may choose.
      */
-    ANY("any");
+    ANY("any", null);
 
     private final String urlParameterName;
+    private final String listUrlParameterName;
 
-    ImageSet(String urlParameterName) {
+    ImageSet(String urlParameterName, String listUrlParameterName) {
         this.urlParameterName = urlParameterName;
+        this.listUrlParameterName = listUrlParameterName;
     }
 
     public String getUrlParameterName() {
         return urlParameterName;
+    }
+
+    public String getListUrlParameterName() {
+        return listUrlParameterName;
     }
 
     public String constructUrlParameter(boolean firstParameter) {
