@@ -4,6 +4,7 @@ import com.github.natche.jrobohash.enums.BackgroundSet;
 import com.github.natche.jrobohash.enums.ImageExtension;
 import com.github.natche.jrobohash.enums.ImageSet;
 import com.github.natche.jrobohash.enums.UseGravatar;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
 import java.awt.*;
 import java.util.Collection;
@@ -18,6 +19,7 @@ public interface RoboHashRequestBuilder {
      * @param imageSet the image set to add to the sets this request can use
      * @return this builder
      */
+    @CanIgnoreReturnValue
     RoboHashRequestBuilder addImageSet(ImageSet imageSet);
 
     /**
@@ -26,6 +28,7 @@ public interface RoboHashRequestBuilder {
      * @param imageSet the image set to remove from the sets this request can use
      * @return this builder
      */
+    @CanIgnoreReturnValue
     RoboHashRequestBuilder removeImageSet(ImageSet imageSet);
 
     /**
@@ -34,6 +37,7 @@ public interface RoboHashRequestBuilder {
      * @param imageSets the image sets to add to the sets this request can use
      * @return this builder
      */
+    @CanIgnoreReturnValue
     RoboHashRequestBuilder addImageSets(Collection<ImageSet> imageSets);
 
     /**
@@ -42,6 +46,7 @@ public interface RoboHashRequestBuilder {
      * @param imageSets the image sets to remove from the sets this request can use
      * @return this builder
      */
+    @CanIgnoreReturnValue
     RoboHashRequestBuilder removeImageSets(Collection<ImageSet> imageSets);
 
     /**
@@ -50,6 +55,7 @@ public interface RoboHashRequestBuilder {
      * @param imageSets the image sets this request can use
      * @return this builder
      */
+    @CanIgnoreReturnValue
     RoboHashRequestBuilder setImageSets(Collection<ImageSet> imageSets);
 
     /**
@@ -57,6 +63,7 @@ public interface RoboHashRequestBuilder {
      *
      * @return this builder
      */
+    @CanIgnoreReturnValue
     RoboHashRequestBuilder resetImageSets();
 
     /**
@@ -65,6 +72,7 @@ public interface RoboHashRequestBuilder {
      * @param backgroundSet the background set to use
      * @return this builder
      */
+    @CanIgnoreReturnValue
     RoboHashRequestBuilder setBackgroundSet(BackgroundSet backgroundSet);
 
     /**
@@ -72,6 +80,7 @@ public interface RoboHashRequestBuilder {
      *
      * @return this builder
      */
+    @CanIgnoreReturnValue
     RoboHashRequestBuilder resetBackgroundSet();
 
     /**
@@ -80,6 +89,7 @@ public interface RoboHashRequestBuilder {
      * @param imageExtension the image extension
      * @return this builder
      */
+    @CanIgnoreReturnValue
     RoboHashRequestBuilder setImageExtension(ImageExtension imageExtension);
 
     /**
@@ -87,6 +97,7 @@ public interface RoboHashRequestBuilder {
      *
      * @return this builder
      */
+    @CanIgnoreReturnValue
     RoboHashRequestBuilder resetImageExtension();
 
     /**
@@ -97,6 +108,7 @@ public interface RoboHashRequestBuilder {
      * @param shouldIgnoreImageExtension whether the image extension should be ignored when hashing the provided text
      * @return this builder
      */
+    @CanIgnoreReturnValue
     RoboHashRequestBuilder setIgnoreExtension(boolean shouldIgnoreImageExtension);
 
     /**
@@ -104,6 +116,7 @@ public interface RoboHashRequestBuilder {
      *
      * @return this builder
      */
+    @CanIgnoreReturnValue
     RoboHashRequestBuilder resetIgnoreExtension();
 
     /**
@@ -112,6 +125,7 @@ public interface RoboHashRequestBuilder {
      * @param useGravatar the use Gravatar mode
      * @return this builder
      */
+    @CanIgnoreReturnValue
     RoboHashRequestBuilder setUseGravatar(UseGravatar useGravatar);
 
     /**
@@ -119,6 +133,7 @@ public interface RoboHashRequestBuilder {
      *
      * @return this builder
      */
+    @CanIgnoreReturnValue
     RoboHashRequestBuilder resetUseGravatar();
 
     /**
@@ -127,6 +142,7 @@ public interface RoboHashRequestBuilder {
      * @param width the width of the image returned by this request
      * @return this builder
      */
+    @CanIgnoreReturnValue
     RoboHashRequestBuilder setWidth(int width);
 
     /**
@@ -134,6 +150,7 @@ public interface RoboHashRequestBuilder {
      *
      * @return this builder
      */
+    @CanIgnoreReturnValue
     RoboHashRequestBuilder resetWidth();
 
     /**
@@ -142,6 +159,7 @@ public interface RoboHashRequestBuilder {
      * @param height the height of the image returned by this request
      * @return this builder
      */
+    @CanIgnoreReturnValue
     RoboHashRequestBuilder setHeight(int height);
 
     /**
@@ -149,6 +167,7 @@ public interface RoboHashRequestBuilder {
      *
      * @return this builder
      */
+    @CanIgnoreReturnValue
     RoboHashRequestBuilder resetHeight();
 
     /**
@@ -157,6 +176,7 @@ public interface RoboHashRequestBuilder {
      * @param size the size of this request
      * @return this builder
      */
+    @CanIgnoreReturnValue
     RoboHashRequestBuilder setSize(Dimension size);
 
     /**
@@ -164,6 +184,7 @@ public interface RoboHashRequestBuilder {
      *
      * @return this builder
      */
+    @CanIgnoreReturnValue
     RoboHashRequestBuilder resetSize();
 
     /**

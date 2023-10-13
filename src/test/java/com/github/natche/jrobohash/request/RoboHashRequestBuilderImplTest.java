@@ -41,7 +41,7 @@ public class RoboHashRequestBuilderImplTest {
      */
     @Test
     void testAccessorsMutators() {
-        RoboHashRequestBuilderImpl builderOne = new RoboHashRequestBuilderImpl("robot", false);
+        RoboHashRequestBuilder builderOne = new RoboHashRequestBuilderImpl("robot", false);
         assertEquals("robot", builderOne.getAvatarKey());
         assertFalse(builderOne.isSafeUrlMode());
         assertEquals(ImmutableList.of(ImageSet.ANY), builderOne.getImageSets());
@@ -53,19 +53,18 @@ public class RoboHashRequestBuilderImplTest {
         assertEquals(ImageExtension.PNG, builderOne.getImageExtension());
         assertFalse(builderOne.isSafeUrlMode());
 
-        RoboHashRequestBuilderImpl builderTwo = new RoboHashRequestBuilderImpl("robot", true);
-
-        builderTwo.setWidth(200);
+        RoboHashRequestBuilder builderTwo = new RoboHashRequestBuilderImpl("robot", true)
+                .setWidth(200);
         assertEquals(200, builderTwo.getWidth());
 
         builderTwo.setHeight(200);
         assertEquals(200, builderTwo.getHeight());
 
-        builderTwo.addImageSet(ImageSet.DEFAULT);
-        builderTwo.addImageSet(ImageSet.MONSTERS);
-        builderTwo.addImageSet(ImageSet.SEXY_ROBOTS);
-        builderTwo.addImageSet(ImageSet.KITTENS);
-        builderTwo.addImageSet(ImageSet.HUMANS);
+        builderTwo.addImageSet(ImageSet.DEFAULT)
+                .addImageSet(ImageSet.MONSTERS)
+                .addImageSet(ImageSet.SEXY_ROBOTS)
+                .addImageSet(ImageSet.KITTENS)
+                .addImageSet(ImageSet.HUMANS);
         assertEquals(ImmutableList.of(
                 ImageSet.DEFAULT,
                 ImageSet.MONSTERS,
@@ -92,7 +91,7 @@ public class RoboHashRequestBuilderImplTest {
      */
     @Test
     void testResettingMutators() {
-        RoboHashRequestBuilderImpl implementationOne = new RoboHashRequestBuilderImpl("key");
+        RoboHashRequestBuilder implementationOne = new RoboHashRequestBuilderImpl("key");
 
         implementationOne.addImageSet(ImageSet.HUMANS);
         assertEquals(ImmutableList.of(ImageSet.HUMANS), implementationOne.getImageSets());
@@ -135,6 +134,23 @@ public class RoboHashRequestBuilderImplTest {
         implementationOne.resetSize();
         assertEquals(RoboHashRequestBuilderImpl.DEFAULT_WIDTH, implementationOne.getWidth());
         assertEquals(RoboHashRequestBuilderImpl.DEFAULT_HEIGHT, implementationOne.getHeight());
+
+        implementationOne.addImageSet(ImageSet.HUMANS);
+        assertTrue(implementationOne.getImageSets().contains(ImageSet.HUMANS));
+        implementationOne.removeImageSet(ImageSet.HUMANS);
+        assertFalse(implementationOne.getImageSets().contains(ImageSet.HUMANS));
+
+        implementationOne.addImageSets(ImmutableList.of(ImageSet.HUMANS, ImageSet.KITTENS));
+        assertTrue(implementationOne.getImageSets().contains(ImageSet.HUMANS));
+        assertTrue(implementationOne.getImageSets().contains(ImageSet.KITTENS));
+        implementationOne.removeImageSets(ImmutableList.of(ImageSet.HUMANS, ImageSet.KITTENS));
+        assertFalse(implementationOne.getImageSets().contains(ImageSet.HUMANS));
+        assertFalse(implementationOne.getImageSets().contains(ImageSet.KITTENS));
+
+        implementationOne.setImageSets(ImmutableList.of(ImageSet.ANY));
+        assertEquals(ImmutableList.of(ImageSet.ANY), implementationOne.getImageSets());
+        implementationOne.setImageSets(ImmutableList.of(ImageSet.SEXY_ROBOTS, ImageSet.DEFAULT));
+        assertEquals(ImmutableList.of(ImageSet.SEXY_ROBOTS, ImageSet.DEFAULT), implementationOne.getImageSets());
     }
 
     /**
@@ -142,16 +158,16 @@ public class RoboHashRequestBuilderImplTest {
      */
     @Test
     void testToString() {
-        RoboHashRequestBuilderImpl implementationOne = new RoboHashRequestBuilderImpl("key");
-        RoboHashRequestBuilderImpl differentOne = new RoboHashRequestBuilderImpl("other key");
+        RoboHashRequestBuilder implementationOne = new RoboHashRequestBuilderImpl("key");
+        RoboHashRequestBuilder differentOne = new RoboHashRequestBuilderImpl("other key");
 
         assertEquals("RoboHashRequestBuilderImpl{avatarKey=\"key\", imageSets=[ANY],"
-                + " backgroundImageSet=ANY, width=300, height=300, useGravatar=NO,"
-                + " ignoreExtension=true, imageExtension=PNG, safeUrlMode=true}",
+                        + " backgroundImageSet=ANY, width=300, height=300, useGravatar=NO,"
+                        + " ignoreExtension=true, imageExtension=PNG, safeUrlMode=true}",
                 implementationOne.toString());
         assertEquals("RoboHashRequestBuilderImpl{avatarKey=\"other key\","
-                + " imageSets=[ANY], backgroundImageSet=ANY, width=300, height=300,"
-                + " useGravatar=NO, ignoreExtension=true, imageExtension=PNG, safeUrlMode=true}",
+                        + " imageSets=[ANY], backgroundImageSet=ANY, width=300, height=300,"
+                        + " useGravatar=NO, ignoreExtension=true, imageExtension=PNG, safeUrlMode=true}",
                 differentOne.toString());
     }
 
@@ -160,9 +176,9 @@ public class RoboHashRequestBuilderImplTest {
      */
     @Test
     void testEquals() {
-        RoboHashRequestBuilderImpl implementationOne = new RoboHashRequestBuilderImpl("key");
-        RoboHashRequestBuilderImpl implementationOneEqual = new RoboHashRequestBuilderImpl("key");
-        RoboHashRequestBuilderImpl differentOne = new RoboHashRequestBuilderImpl("other key");
+        RoboHashRequestBuilder implementationOne = new RoboHashRequestBuilderImpl("key");
+        RoboHashRequestBuilder implementationOneEqual = new RoboHashRequestBuilderImpl("key");
+        RoboHashRequestBuilder differentOne = new RoboHashRequestBuilderImpl("other key");
 
         assertEquals(implementationOne, implementationOne);
         assertEquals(implementationOne, implementationOneEqual);
@@ -175,9 +191,9 @@ public class RoboHashRequestBuilderImplTest {
      */
     @Test
     void testHashCode() {
-        RoboHashRequestBuilderImpl implementationOne = new RoboHashRequestBuilderImpl("key");
-        RoboHashRequestBuilderImpl implementationOneEqual = new RoboHashRequestBuilderImpl("key");
-        RoboHashRequestBuilderImpl differentOne = new RoboHashRequestBuilderImpl("other key");
+        RoboHashRequestBuilder implementationOne = new RoboHashRequestBuilderImpl("key");
+        RoboHashRequestBuilder implementationOneEqual = new RoboHashRequestBuilderImpl("key");
+        RoboHashRequestBuilder differentOne = new RoboHashRequestBuilderImpl("other key");
 
         assertEquals(implementationOne.hashCode(), implementationOne.hashCode());
         assertEquals(implementationOne.hashCode(), implementationOneEqual.hashCode());

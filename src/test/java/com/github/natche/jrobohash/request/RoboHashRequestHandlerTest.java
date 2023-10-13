@@ -24,8 +24,10 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @SuppressWarnings("SpellCheckingInspection") /* MD5 digests */
 public class RoboHashRequestHandlerTest {
-    private final RoboHashRequestBuilderImpl builder = new RoboHashRequestBuilderImpl("2bf1b7a19bcad06a8e894d7373a4cfc7");
-    private final RoboHashRequestBuilderImpl builder2 = new RoboHashRequestBuilderImpl("2bf1b7a19bcad06a8e894d7373a4cfc7");
+    private final RoboHashRequestBuilderImpl builder =
+            new RoboHashRequestBuilderImpl("2bf1b7a19bcad06a8e894d7373a4cfc7");
+    private final RoboHashRequestBuilderImpl builder2 =
+            new RoboHashRequestBuilderImpl("2bf1b7a19bcad06a8e894d7373a4cfc7");
     private final RoboHashRequestBuilderImpl builder3 = new RoboHashRequestBuilderImpl("nathan-cheshire");
     private final RoboHashRequestBuilderImpl builder4 = new RoboHashRequestBuilderImpl("nathan-v-cheshire");
     private final RoboHashRequestBuilderImpl builder5 = new RoboHashRequestBuilderImpl("minimal");
@@ -38,29 +40,29 @@ public class RoboHashRequestHandlerTest {
 
     @BeforeEach
     void setup() {
-        builder.setSize(new Dimension(500, 500));
-        builder.setUseGravatar(UseGravatar.HASHED);
-        builder.addImageSet(ImageSet.HUMANS);
-        builder.setBackgroundSet(BackgroundSet.SPIRAL_AND_PATTERNS);
-        builder.setImageExtension(ImageExtension.JPEG);
+        builder.setSize(new Dimension(500, 500))
+                .setUseGravatar(UseGravatar.HASHED)
+                .addImageSet(ImageSet.HUMANS)
+                .setBackgroundSet(BackgroundSet.SPIRAL_AND_PATTERNS)
+                .setImageExtension(ImageExtension.JPEG);
 
-        builder2.setSize(new Dimension(500, 500));
-        builder2.setUseGravatar(UseGravatar.HASHED);
-        builder2.addImageSet(ImageSet.HUMANS);
-        builder2.setBackgroundSet(BackgroundSet.SPIRAL_AND_PATTERNS);
-        builder2.setImageExtension(ImageExtension.JPEG);
-        builder2.setIgnoreExtension(false);
+        builder2.setSize(new Dimension(500, 500))
+                .setUseGravatar(UseGravatar.HASHED)
+                .addImageSet(ImageSet.HUMANS)
+                .setBackgroundSet(BackgroundSet.SPIRAL_AND_PATTERNS)
+                .setImageExtension(ImageExtension.JPEG)
+                .setIgnoreExtension(false);
 
-        builder3.setSize(new Dimension(600, 600));
-        builder3.addImageSet(ImageSet.MONSTERS);
-        builder3.setBackgroundSet(BackgroundSet.OUTSIDE);
-        builder3.setImageExtension(ImageExtension.JPG);
+        builder3.setSize(new Dimension(600, 600))
+                .addImageSet(ImageSet.MONSTERS)
+                .setBackgroundSet(BackgroundSet.OUTSIDE)
+                .setImageExtension(ImageExtension.JPG);
 
-        builder4.setSize(new Dimension(701, 701));
-        builder4.addImageSet(ImageSet.MONSTERS);
-        builder4.addImageSet(ImageSet.HUMANS);
-        builder4.setBackgroundSet(BackgroundSet.SPIRAL_AND_PATTERNS);
-        builder4.setImageExtension(ImageExtension.PNG);
+        builder4.setSize(new Dimension(701, 701))
+                .addImageSet(ImageSet.MONSTERS)
+                .addImageSet(ImageSet.HUMANS)
+                .setBackgroundSet(BackgroundSet.SPIRAL_AND_PATTERNS)
+                .setImageExtension(ImageExtension.PNG);
     }
 
     /**
@@ -86,14 +88,14 @@ public class RoboHashRequestHandlerTest {
      */
     @Test
     void testBuildRequestUrl() {
-        assertThrows(NullPointerException.class, ()-> RoboHashRequestHandler.buildRequestUrl(null));
+        assertThrows(NullPointerException.class, () -> RoboHashRequestHandler.buildRequestUrl(null));
 
         assertEquals("https://robohash.org/2bf1b7a19bcad06a8e894d7373a4cfc7.jpeg"
-                + "?set=set5&bgset=bg2&size=500x500&gravatar=hashed",
+                        + "?set=set5&bgset=bg2&size=500x500&gravatar=hashed",
                 RoboHashRequestHandler.buildRequestUrl(builder));
 
         assertEquals("https://robohash.org/2bf1b7a19bcad06a8e894d7373a4cfc7.jpeg"
-                + "?set=set5&bgset=bg2&size=500x500&gravatar=hashed&ignoreext=false",
+                        + "?set=set5&bgset=bg2&size=500x500&gravatar=hashed&ignoreext=false",
                 RoboHashRequestHandler.buildRequestUrl(builder2));
 
         assertEquals("https://robohash.org/nathan-cheshire.jpg?set=set2&bgset=bg1&size=600x600",
@@ -127,8 +129,8 @@ public class RoboHashRequestHandlerTest {
             if (bufferedImage.getWidth() != otherBufferedImage.getWidth()
                     || bufferedImage.getHeight() != otherBufferedImage.getHeight()) return false;
 
-            for (int x = 0; x < bufferedImage.getWidth(); x++) {
-                for (int y = 0; y < bufferedImage.getHeight(); y++) {
+            for (int x = 0 ; x < bufferedImage.getWidth() ; x++) {
+                for (int y = 0 ; y < bufferedImage.getHeight() ; y++) {
                     if (otherBufferedImage.getRGB(x, y) != otherBufferedImage.getRGB(x, y)) {
                         return false;
                     }
