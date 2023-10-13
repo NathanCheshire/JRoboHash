@@ -38,13 +38,13 @@ public class GeneralUtilsTest {
     }
 
     /**
-     * Test to ensure reading a buffered image from a particular url works.
+     * Test to ensure reading a buffered image from a particular URL works.
      */
     @Test
     void testReadBufferedImage() {
         assertThrows(NullPointerException.class, () -> GeneralUtils.readBufferedImage(null));
         assertThrows(IllegalArgumentException.class, () -> GeneralUtils.readBufferedImage(""));
-        assertThrows(JRoboHashException.class, () -> GeneralUtils.readBufferedImage("url"));
+        assertThrows(JRoboHashException.class, () -> GeneralUtils.readBufferedImage("URL"));
 
         AtomicReference<BufferedImage> bi = new AtomicReference<>();
         assertDoesNotThrow(() -> bi.set(GeneralUtils.readBufferedImage(
@@ -72,7 +72,7 @@ public class GeneralUtilsTest {
     }
 
     /**
-     * Test that a url containing invalid characters is properly categorized.
+     * Test that a URL containing invalid characters is properly categorized.
      */
     @Test
     void testIsValidUrlChars() {
@@ -84,7 +84,7 @@ public class GeneralUtilsTest {
     }
 
     /**
-     * Test url encoding works as expected.
+     * Test URL encoding works as expected.
      */
     @Test
     void testEncodeUrl() {

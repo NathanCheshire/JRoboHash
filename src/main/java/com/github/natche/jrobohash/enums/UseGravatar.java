@@ -26,9 +26,9 @@ public enum UseGravatar {
     }
 
     /**
-     * Returns the url parameter representation for this use Gravatar.
+     * Returns the URL parameter representation for this use Gravatar.
      *
-     * @return the url parameter representation for this use Gravatar
+     * @return the URL parameter representation for this use Gravatar
      */
     private String getUrlParameterRepresentation() {
         return switch (this) {

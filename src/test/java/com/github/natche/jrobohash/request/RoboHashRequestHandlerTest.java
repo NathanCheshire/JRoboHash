@@ -82,7 +82,7 @@ public class RoboHashRequestHandlerTest {
     }
 
     /**
-     * Tests for the build request url method.
+     * Tests for the build request URL method.
      */
     @Test
     void testBuildRequestUrl() {

@@ -14,7 +14,7 @@ public class ImageSetTest {
     ImageSetTest() {}
 
     /**
-     * Tests for the get url parameter name method.
+     * Tests for the get URL parameter name method.
      */
     @Test
     void testGetUrlParameterName() {
@@ -27,7 +27,7 @@ public class ImageSetTest {
     }
 
     /**
-     * Tests for the construct url parameter method.
+     * Tests for the construct URL parameter method.
      */
     @Test
     void testConstructUrlParameter() {

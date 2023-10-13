@@ -48,11 +48,11 @@ public enum UrlParameter {
     }
 
     /**
-     * The url encoded parameter such as "bgset" for {@link #BACKGROUND_SET}.
+     * The URL parameter such as "bgset" for {@link #BACKGROUND_SET}.
      *
-     * @return url encoded parameter such as "bgset" for {@link #BACKGROUND_SET}
+     * @return the URL parameter such as "bgset" for {@link #BACKGROUND_SET}
      */
-    public String getUrlParameter() {
+    public String getUrlParameterName() {
         return urlParameter;
     }
 

@@ -15,21 +15,21 @@ public class UrlParameterTest {
     UrlParameterTest() {}
 
     /**
-     * Tests for the get url parameter method.
+     * Tests for the get URL parameter method.
      */
     @Test
-    void testGetUrlParameter() {
-        assertEquals("", UrlParameter.IMAGE_EXTENSION.getUrlParameter());
-        assertEquals("gravatar", UrlParameter.USE_GRAVATAR.getUrlParameter());
-        assertEquals("ignoreext", UrlParameter.IGNORE_EXTENSION.getUrlParameter());
-        assertEquals("set", UrlParameter.IMAGE_SET.getUrlParameter());
-        assertEquals("sets", UrlParameter.IMAGE_SETS.getUrlParameter());
-        assertEquals("bgset", UrlParameter.BACKGROUND_SET.getUrlParameter());
-        assertEquals("size", UrlParameter.SIZE.getUrlParameter());
+    void testGetUrlParameterName() {
+        assertEquals("", UrlParameter.IMAGE_EXTENSION.getUrlParameterName());
+        assertEquals("gravatar", UrlParameter.USE_GRAVATAR.getUrlParameterName());
+        assertEquals("ignoreext", UrlParameter.IGNORE_EXTENSION.getUrlParameterName());
+        assertEquals("set", UrlParameter.IMAGE_SET.getUrlParameterName());
+        assertEquals("sets", UrlParameter.IMAGE_SETS.getUrlParameterName());
+        assertEquals("bgset", UrlParameter.BACKGROUND_SET.getUrlParameterName());
+        assertEquals("size", UrlParameter.SIZE.getUrlParameterName());
     }
 
     /**
-     * Tests for the encode url parameter method.
+     * Tests for the encode URL parameter method.
      */
     @Test
     void testEncodeUrlParameter() {

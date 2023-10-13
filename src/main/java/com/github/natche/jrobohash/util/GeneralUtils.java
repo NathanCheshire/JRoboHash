@@ -25,7 +25,7 @@ public final class GeneralUtils {
     );
 
     /**
-     * Suppress default constructor.
+     * Suppress default constructor to prevent instantiation via reflection.
      *
      * @throws AssertionError if invoked
      */
@@ -49,7 +49,7 @@ public final class GeneralUtils {
         try {
             return ImageIO.read(new URL(url));
         } catch (Exception e) {
-            throw new JRoboHashException("Failed to get image from url: "
+            throw new JRoboHashException("Failed to get image from URL: "
                     + url + ", error: " + e.getMessage());
         }
     }

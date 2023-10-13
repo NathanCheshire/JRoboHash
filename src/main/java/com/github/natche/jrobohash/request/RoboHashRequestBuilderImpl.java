@@ -79,7 +79,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     /**
      * Constructs a new RoboHashRequestBuilderImpl object.
      *
-     * @param avatarKey the key for the RoboHash avatar to be included in the url
+     * @param avatarKey the key for the RoboHash avatar to be included in the URL
      * @throws NullPointerException     if the provided avatarKey is null
      * @throws IllegalArgumentException if the provided avatarKey is empty
      */
@@ -90,7 +90,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     /**
      * Constructs a new RoboHashRequestBuilderImpl object.
      *
-     * @param avatarKey   the key for the RoboHash avatar to be included in the url
+     * @param avatarKey   the key for the RoboHash avatar to be included in the URL
      * @param safeUrlMode whether safe URL mode is enabled meaning if the provided
      *                    avatarKey contained invalid characters, they will be encoded
      * @throws NullPointerException     if the provided avatarKey is null

@@ -14,7 +14,7 @@ public class UseGravatarTest {
     UseGravatarTest() {}
 
     /**
-     * Tests for the construct url parameter method.
+     * Tests for the construct URL parameter method.
      */
     @Test
     void testConstructUrlParameter() {

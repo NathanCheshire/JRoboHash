@@ -225,9 +225,9 @@ public interface RoboHashRequestBuilder {
     ImageExtension getImageExtension();
 
     /**
-     * Returns whether safe mode is enabled when building the url.
+     * Returns whether safe mode is enabled when building the URL.
      *
-     * @return whether safe mode is enabled when building the url
+     * @return whether safe mode is enabled when building the URL
      */
     default boolean isSafeUrlMode() {
         return false;

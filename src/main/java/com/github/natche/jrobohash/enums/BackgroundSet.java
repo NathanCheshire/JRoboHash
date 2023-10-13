@@ -1,7 +1,7 @@
 package com.github.natche.jrobohash.enums;
 
 /**
- * The possible background image sets for RoboHash.
+ * The background image sets supported by RoboHash.
  */
 public enum BackgroundSet {
     /**
@@ -35,10 +35,10 @@ public enum BackgroundSet {
     }
 
     /**
-     * Constructs the url parameter for this background set.
+     * Constructs the URL parameter for this background set.
      *
-     * @param firstParameter whether this parameter is the first in the list of url parameters
-     * @return the url parameter for this background set
+     * @param firstParameter whether this parameter is the first in the list of URL parameters
+     * @return the URL parameter for this background set
      */
     public String constructUrlParameter(boolean firstParameter) {
         return UrlParameter.BACKGROUND_SET.encodeUrlParameter(setName, firstParameter);
