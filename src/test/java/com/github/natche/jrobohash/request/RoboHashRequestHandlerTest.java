@@ -79,7 +79,7 @@ public class RoboHashRequestHandlerTest {
             assertTrue(e instanceof InvocationTargetException);
             Throwable target = ((InvocationTargetException) e).getTargetException();
             assertTrue(target instanceof AssertionError);
-            assertEquals("Cannot create instances of RobohashRequestHandler", target.getMessage());
+            assertEquals("Cannot create instances of RoboHashRequestHandler", target.getMessage());
         }
     }
 

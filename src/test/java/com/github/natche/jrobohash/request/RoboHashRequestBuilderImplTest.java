@@ -84,6 +84,13 @@ public class RoboHashRequestBuilderImplTest {
 
         builderTwo.setImageExtension(ImageExtension.JPEG);
         assertEquals(ImageExtension.JPEG, builderTwo.getImageExtension());
+
+        RoboHashRequestBuilderImpl implBuilder = new RoboHashRequestBuilderImpl("allan-adams");
+        assertTrue(implBuilder.isSafeUrlMode());
+        implBuilder.enableSafeUrlMode();
+        assertTrue(implBuilder.isSafeUrlMode());
+        implBuilder.disableSafeUrlMode();
+        assertFalse(implBuilder.isSafeUrlMode());
     }
 
     /**

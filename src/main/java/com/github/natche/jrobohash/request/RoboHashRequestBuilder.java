@@ -50,7 +50,7 @@ public interface RoboHashRequestBuilder {
     RoboHashRequestBuilder removeImageSets(Collection<ImageSet> imageSets);
 
     /**
-     * Sets the image sets this request can use.
+     * Overwrites and sets the image sets this request can use.
      *
      * @param imageSets the image sets this request can use
      * @return this builder
@@ -59,7 +59,7 @@ public interface RoboHashRequestBuilder {
     RoboHashRequestBuilder setImageSets(Collection<ImageSet> imageSets);
 
     /**
-     * Removes all sets this request can use and sets the default, that of {@link ImageSet#ANY}.
+     * Removes all sets this request can use and adds the default, that of {@link ImageSet#ANY}.
      *
      * @return this builder
      */
@@ -67,7 +67,7 @@ public interface RoboHashRequestBuilder {
     RoboHashRequestBuilder resetImageSets();
 
     /**
-     * Sets the provided background as the background set this request can use.
+     * Sets the provided background set as the background set this request will use.
      *
      * @param backgroundSet the background set to use
      * @return this builder
@@ -84,16 +84,16 @@ public interface RoboHashRequestBuilder {
     RoboHashRequestBuilder resetBackgroundSet();
 
     /**
-     * Sets the extension this request should return.
+     * Sets the extension of the image this request should result in.
      *
-     * @param imageExtension the image extension
+     * @param imageExtension the image extension this request should result in
      * @return this builder
      */
     @CanIgnoreReturnValue
     RoboHashRequestBuilder setImageExtension(ImageExtension imageExtension);
 
     /**
-     * Resets the image extension this request should use, that of {@link ImageExtension#PNG}.
+     * Resets the image extension this request should result in, that of {@link ImageExtension#PNG}.
      *
      * @return this builder
      */
@@ -102,8 +102,8 @@ public interface RoboHashRequestBuilder {
 
     /**
      * Sets whether the image extension should be ignored when hashing the text provided to RoboHash.
-     * By default, this is true meaning "alive.png" and "alive.bmp" would return the same image.
-     * If this is set to false, however, these would return different images.
+     * By default, this is {@code true} meaning "alive.png" and "alive.bmp" would return the same image.
+     * If this is set to {@code false}, however, differing extensions would result in different images.
      *
      * @param shouldIgnoreImageExtension whether the image extension should be ignored when hashing the provided text
      * @return this builder
@@ -112,7 +112,8 @@ public interface RoboHashRequestBuilder {
     RoboHashRequestBuilder setIgnoreExtension(boolean shouldIgnoreImageExtension);
 
     /**
-     * Resets whether the image extension should be ignored when hashing the provided text, meaning it is set to true.
+     * Resets whether the image extension should be ignored when hashing
+     * the provided text. The default value is {@code true}.
      *
      * @return this builder
      */
@@ -120,16 +121,16 @@ public interface RoboHashRequestBuilder {
     RoboHashRequestBuilder resetIgnoreExtension();
 
     /**
-     * Sets the use Gravatar mode of this request.
+     * Sets the use {@link UseGravatar} mode of this request.
      *
-     * @param useGravatar the use Gravatar mode
+     * @param useGravatar the use {@link UseGravatar} mode
      * @return this builder
      */
     @CanIgnoreReturnValue
     RoboHashRequestBuilder setUseGravatar(UseGravatar useGravatar);
 
     /**
-     * Resets the use Gravatar mode of this request by setting it to {@link UseGravatar#NO}.
+     * Resets the {@link UseGravatar} mode of this request by setting it to {@link UseGravatar#NO}.
      *
      * @return this builder
      */
@@ -195,37 +196,37 @@ public interface RoboHashRequestBuilder {
     String getAvatarKey();
 
     /**
-     * Returns the image sets this request can use.
+     * Returns the image sets this request will use.
      *
-     * @return the image sets this request can use
+     * @return the image sets this request will use
      */
     Collection<ImageSet> getImageSets();
 
     /**
-     * Returns the background set this request can use.
+     * Returns the background set this request will use.
      *
-     * @return the background set this request can use
+     * @return the background set this request will use
      */
     BackgroundSet getBackgroundSet();
 
     /**
-     * Returns the width the resulting image should be of.
+     * Returns the width the resulting image will be of.
      *
-     * @return the width the resulting image should be of
+     * @return the width the resulting image will be of
      */
     int getWidth();
 
     /**
-     * Returns the height the resulting image should be of.
+     * Returns the height the resulting image will be of.
      *
-     * @return the height the resulting image should be of
+     * @return the height the resulting image will be of
      */
     int getHeight();
 
     /**
-     * Returns the Gravatar mode for this request.
+     * Returns the {@link UseGravatar} mode for this request.
      *
-     * @return the Gravatar mode for this request
+     * @return the {@link UseGravatar} mode for this request
      */
     UseGravatar getUseGravatar();
 
@@ -246,9 +247,9 @@ public interface RoboHashRequestBuilder {
     ImageExtension getImageExtension();
 
     /**
-     * Returns whether safe mode is enabled when building the URL.
+     * Returns whether safe mode is enabled for when building the URL.
      *
-     * @return whether safe mode is enabled when building the URL
+     * @return whether safe mode is enabled for when building the URL
      */
     default boolean isSafeUrlMode() {
         return false;

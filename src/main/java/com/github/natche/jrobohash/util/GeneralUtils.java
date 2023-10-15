@@ -12,10 +12,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
 
 /**
- * General utility methods used throughout JRoboHash.
+ * General utility methods used throughout the JRoboHash API.
  */
 public final class GeneralUtils {
-    private static final Pattern ROBOHASH_SAFE_STRING_PATTERN = Pattern.compile("^[a-zA-Z0-9-._~]+$");
+    /**
+     * The valid characters RoboHash accepts in an avatar key.
+     */
+    private static final Pattern SAFE_URL_PATTERN = Pattern.compile("^[a-zA-Z0-9-._~]+$");
 
     /**
      * The invalid filename characters for Windows and Unix based systems.
@@ -36,7 +39,7 @@ public final class GeneralUtils {
     /**
      * Returns a buffered image read from the provided URL.
      *
-     * @param url the URL
+     * @param url the URL to read the image from
      * @return the URL from the provided image
      * @throws NullPointerException     if the provided URL is null
      * @throws IllegalArgumentException if the provided URL is empty
@@ -55,10 +58,10 @@ public final class GeneralUtils {
     }
 
     /**
-     * Returns whether the provided filename is valid for this operating system.
+     * Returns whether the provided filename is valid for the host operating system.
      *
-     * @param filename the filename
-     * @return whether the provided filename is valid for this operating system
+     * @param filename the proposed filename
+     * @return whether the provided filename is valid for the host operating system
      * @throws NullPointerException     if the provided filename is null
      * @throws IllegalArgumentException if the provided filename is empty
      */
@@ -83,7 +86,7 @@ public final class GeneralUtils {
         Preconditions.checkNotNull(input);
         Preconditions.checkArgument(!input.trim().isEmpty());
 
-        return ROBOHASH_SAFE_STRING_PATTERN.matcher(input).matches();
+        return SAFE_URL_PATTERN.matcher(input).matches();
     }
 
     /**

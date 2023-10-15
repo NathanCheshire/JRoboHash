@@ -18,7 +18,14 @@ import java.util.stream.Collectors;
  * A handler for accepting {@link RoboHashRequestBuilder}s.
  */
 public class RoboHashRequestHandler {
+    /**
+     * The domain URL header for RoboHash.
+     */
     private static final String DOMAIN_HEADER = "https://robohash.org/";
+
+    /**
+     * The separation character for width and height.
+     */
     private static final String WIDTH_HEIGHT_SEPARATOR = "x";
 
     /**
@@ -27,7 +34,7 @@ public class RoboHashRequestHandler {
      * @throws AssertionError if invoked
      */
     private RoboHashRequestHandler() {
-        throw new AssertionError("Cannot create instances of RobohashRequestHandler");
+        throw new AssertionError("Cannot create instances of RoboHashRequestHandler");
     }
 
     /**
@@ -40,18 +47,8 @@ public class RoboHashRequestHandler {
     public static String buildRequestUrl(RoboHashRequestBuilder builder) {
         Preconditions.checkNotNull(builder);
 
-        StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder.append(DOMAIN_HEADER);
-        String avatarKey = builder.getImageExtension().setAsImageExtension(builder.getAvatarKey());
-        urlBuilder.append(avatarKey);
-        urlBuilder.append(getImageSetsUrlParameter(builder));
-        urlBuilder.append(UrlParameter.BACKGROUND_SET.encodeUrlParameter(builder.getBackgroundSet().getSetName()));
-        urlBuilder.append(constructSizeParameter(builder));
-        urlBuilder.append(builder.getUseGravatar().constructUrlParameter(false));
-        if (!builder.shouldIgnoreExtension()) {
-            urlBuilder.append(UrlParameter.IGNORE_EXTENSION.encodeUrlParameter("false"));
-        }
-
+        StringBuilder urlBuilder = initializeUrlBuilder(builder);
+        addUrlParameters(builder, urlBuilder);
         return urlBuilder.toString();
     }
 
@@ -91,6 +88,43 @@ public class RoboHashRequestHandler {
             e.printStackTrace();
             throw new JRoboHashException(
                     "Failed to write image to file: " + file.getName() + ", error: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Initializes and returns a {@link StringBuilder} with the RoboHash
+     * domain header and avatar key already set up for the request.
+     *
+     * @param builder the builder
+     * @return the initialized string builder
+     * @throws NullPointerException if the provided builder is null
+     */
+    private static StringBuilder initializeUrlBuilder(RoboHashRequestBuilder builder) {
+        Preconditions.checkNotNull(builder);
+
+        StringBuilder urlBuilder = new StringBuilder(DOMAIN_HEADER);
+        String avatarKey = builder.getImageExtension().setAsImageExtension(builder.getAvatarKey());
+        urlBuilder.append(avatarKey);
+        return urlBuilder;
+    }
+
+    /**
+     * Adds the URL parameters from the provided builder to the provided existing URl string builder.
+     *
+     * @param builder    the RoboHash request builder
+     * @param urlBuilder the string builder initialized with the RoboHash domain and avatar key
+     * @throws NullPointerException if either the provided builder or string builder is null
+     */
+    private static void addUrlParameters(RoboHashRequestBuilder builder, StringBuilder urlBuilder) {
+        Preconditions.checkNotNull(builder);
+        Preconditions.checkNotNull(urlBuilder);
+
+        urlBuilder.append(getImageSetsUrlParameter(builder));
+        urlBuilder.append(UrlParameter.BACKGROUND_SET.encodeUrlParameter(builder.getBackgroundSet().getSetName()));
+        urlBuilder.append(constructSizeParameter(builder));
+        urlBuilder.append(builder.getUseGravatar().constructUrlParameter(false));
+        if (!builder.shouldIgnoreExtension()) {
+            urlBuilder.append(UrlParameter.IGNORE_EXTENSION.encodeUrlParameter("false"));
         }
     }
 

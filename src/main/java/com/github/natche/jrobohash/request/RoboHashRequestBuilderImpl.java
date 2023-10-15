@@ -7,6 +7,7 @@ import com.github.natche.jrobohash.enums.UseGravatar;
 import com.github.natche.jrobohash.util.GeneralUtils;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -470,6 +471,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
      *
      * @return this builder
      */
+    @CanIgnoreReturnValue
     public RoboHashRequestBuilder enableSafeUrlMode() {
         safeUrlMode = true;
         return this;
@@ -481,6 +483,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
      *
      * @return this builder
      */
+    @CanIgnoreReturnValue
     public RoboHashRequestBuilder disableSafeUrlMode() {
         safeUrlMode = false;
         return this;
@@ -532,7 +535,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     }
 
     /**
-     * Returns a {@link String} representation for this {@link RoboHashRequestBuilderImpl}
+     * Returns a {@link String} representation for this {@link RoboHashRequestBuilderImpl}.
      *
      * @return a {@link String} representation for this {@link RoboHashRequestBuilderImpl}
      */
