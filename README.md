@@ -39,7 +39,7 @@ There are of course additional mutators exposed by the `RoboHashRequestBuilder` 
 parameters
 supported by the RoboHash API.
 
-You may pass builders to the `RoboHashRequestHandler` to generate URLs, download images, and save images from the
+You may pass `RoboHashRequestBuilder`s to the `RoboHashRequestHandler` to generate URLs, download images, and save images from the
 builder's current state.
 
 ```java
