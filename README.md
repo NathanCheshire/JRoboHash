@@ -1,6 +1,6 @@
-# JRoboHash
+![Title](./assets/robohash.png)
 
-## A Java (JVM) wrapper for the RoboHash API.
+![Author](./assets/author.png)
 
 # Intro
 
