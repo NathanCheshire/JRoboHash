@@ -28,15 +28,26 @@ Using the client is quite simple and intuitive yet also extensible should you re
 of `RoboHashRequestBuilder`, that of `RoboHashRequestBuilderImpl`, uses a builder pattern allowing for the following:
 
 ```java
-RoboHashRequestBuilder requesBuilder=new RoboHashRequestBuilderImpl('MY_AVATAR_KEY')
+RoboHashRequestBuilder requestBuilder = new RoboHashRequestBuilderImpl('MY_AVATAR_KEY')
         .addImageSets(ImageSet.MONSTERS)
         .addImageSets(ImageSet.HUMANS)
         .setSize(new Dimension(500,500))
         .setImageExtension(ImageExtension.JPEG);
 ```
 
-There are of course additional mutators exposed by the `RoboHashRequestBuilder` to allow customization of all URL parameters
+There are of course additional mutators exposed by the `RoboHashRequestBuilder` to allow customization of all URL
+parameters
 supported by the RoboHash API.
+
+You may pass builders to the `RoboHashRequestHandler` to generate URLs, download images, and save images from the
+builder's current state.
+
+```java
+// Building a URL
+String builtUrl = RoboHashRequestHandler.buildRequestUrl(requestBuilder);
+// Saving the image to a file
+RoboHashRequestHandler.saveToFile(requestBuilder, new File("./my_image.jpeg"));
+```
 
 ## Contributing
 
