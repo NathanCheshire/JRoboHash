@@ -29,8 +29,8 @@ of `RoboHashRequestBuilder`, that of `RoboHashRequestBuilderImpl`, uses a builde
 
 ```java
 RoboHashRequestBuilder requestBuilder = new RoboHashRequestBuilderImpl('MY_AVATAR_KEY')
-        .addImageSets(ImageSet.MONSTERS)
-        .addImageSets(ImageSet.HUMANS)
+        .addImageSet(ImageSet.MONSTERS)
+        .addImageSet(ImageSet.HUMANS)
         .setSize(new Dimension(500,500))
         .setImageExtension(ImageExtension.JPEG);
 ```
