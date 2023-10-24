@@ -73,6 +73,7 @@ public class RoboHashRequestHandler {
      * @param file    the file to save the resulting image to
      * @throws NullPointerException     if the provided builder or file are null
      * @throws IllegalArgumentException if the provided file exists or is a directory
+     * @throws JRoboHashException if the downloaded image cannot be saved
      */
     public static void saveToFile(RoboHashRequestBuilder builder, File file) {
         Preconditions.checkNotNull(builder);
@@ -85,7 +86,6 @@ public class RoboHashRequestHandler {
         try {
             ImageIO.write(image, builder.getImageExtension().getExtension(), file);
         } catch (IOException e) {
-            e.printStackTrace();
             throw new JRoboHashException(
                     "Failed to write image to file: " + file.getName() + ", error: " + e.getMessage());
         }

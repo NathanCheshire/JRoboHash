@@ -251,7 +251,5 @@ public interface RoboHashRequestBuilder {
      *
      * @return whether safe mode is enabled for when building the URL
      */
-    default boolean isSafeUrlMode() {
-        return false;
-    }
+     boolean isSafeUrlMode();
 }

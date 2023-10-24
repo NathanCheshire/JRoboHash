@@ -214,5 +214,8 @@ public class RoboHashRequestHandlerTest {
         assertTrue(builder5File.delete());
 
         assertTrue(tmpDir.delete());
+
+        File illegalFile = new File("/my-file.png");
+        assertThrows(JRoboHashException.class, () -> RoboHashRequestHandler.saveToFile(builder5, illegalFile));
     }
 }

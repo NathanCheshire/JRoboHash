@@ -25,4 +25,14 @@ public class UseGravatarTest {
         assertEquals("", UseGravatar.NO.constructUrlParameter(true));
         assertEquals("", UseGravatar.NO.constructUrlParameter(false));
     }
+
+    /**
+     * Tests for the getUrlParameterRepresentation method.
+     */
+    @Test
+    void testGetUrlParameterRepresentation() {
+        assertEquals("no", UseGravatar.NO.getUrlParameterRepresentation());
+        assertEquals("yes", UseGravatar.YES.getUrlParameterRepresentation());
+        assertEquals("hashed", UseGravatar.HASHED.getUrlParameterRepresentation());
+    }
 }

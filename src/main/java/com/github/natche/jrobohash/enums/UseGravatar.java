@@ -40,7 +40,7 @@ public enum UseGravatar {
      *
      * @return the URL parameter representation for this use Gravatar
      */
-    private String getUrlParameterRepresentation() {
+    public String getUrlParameterRepresentation() {
         return switch (this) {
             case NO -> "no";
             case YES -> "yes";
