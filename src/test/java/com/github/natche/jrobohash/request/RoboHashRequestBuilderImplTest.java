@@ -129,6 +129,12 @@ public class RoboHashRequestBuilderImplTest {
         assertEquals(5150, implementationOne.getWidth());
         implementationOne.resetWidth();
         assertEquals(RoboHashRequestBuilderImpl.DEFAULT_WIDTH, implementationOne.getWidth());
+        assertThrows(IllegalArgumentException.class, () -> implementationOne.setWidth(-1));
+        assertThrows(IllegalArgumentException.class, () -Ï> implementationOne.setHeight(-1));
+        assertThrows(IllegalArgumentException.class, () -> implementationOne.setSize(new Dimension(-1, 1)));
+        assertThrows(IllegalArgumentException.class, () -> implementationOne.setSize(new Dimension(1, -1)));
+        assertThrows(IllegalArgumentException.class, () -> implementationOne.setSize(new Dimension(-1, -1)));
+        assertDoesNotThrow(() -> implementationOne.setSize(new Dimension(1, 1)));
 
         implementationOne.setHeight(5150);
         assertEquals(5150, implementationOne.getHeight());
@@ -158,6 +164,16 @@ public class RoboHashRequestBuilderImplTest {
         assertEquals(ImmutableList.of(ImageSet.ANY), implementationOne.getImageSets());
         implementationOne.setImageSets(ImmutableList.of(ImageSet.SEXY_ROBOTS, ImageSet.DEFAULT));
         assertEquals(ImmutableList.of(ImageSet.SEXY_ROBOTS, ImageSet.DEFAULT), implementationOne.getImageSets());
+
+        implementationOne.addImageSet(ImageSet.ANY);
+        assertTrue(implementationOne.getImageSets().contains(ImageSet.ANY));
+        implementationOne.addImageSet(ImageSet.KITTENS);
+        assertTrue(implementationOne.getImageSets().contains(ImageSet.KITTENS));
+        assertFalse(implementationOne.getImageSets().contains(ImageSet.ANY));
+
+        assertThrows(IllegalArgumentException.class, () -> implementationOne.addImageSets(ImmutableList.of()));
+        assertThrows(IllegalArgumentException.class, () -> implementationOne.removeImageSets(ImmutableList.of()));
+        assertThrows(IllegalArgumentException.class, () -> implementationOne.setImageSets(ImmutableList.of()));
     }
 
     /**
