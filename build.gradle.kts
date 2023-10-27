@@ -21,7 +21,7 @@ dependencies {
 
 tasks.withType<JacocoReport> {
     reports {
-        xml.outputLocation.set(file("$buildDir/reports/jacoco/test/xml"))
+        xml.outputLocation.set(file("$buildDir/reports/jacoco/test/xml/index.xml"))
         xml.required.set(true)
         html.required.set(false)
     }
