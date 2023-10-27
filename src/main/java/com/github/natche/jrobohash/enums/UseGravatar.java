@@ -10,17 +10,23 @@ public enum UseGravatar {
     /**
      * Gravatar should be used.
      */
-    YES,
+    YES("yes"),
 
     /**
      * Gravatar should not be used.
      */
-    NO,
+    NO("no"),
 
     /**
      * Gravatar should be used AND the provided string has already been hashed used MD5.
      */
-    HASHED;
+    HASHED("hashed");
+
+    private final String urlParameterName;
+
+    UseGravatar(String urlParameterName) {
+        this.urlParameterName = urlParameterName;
+    }
 
     /**
      * Constructs a URL parameter for this Gravatar state.
@@ -41,10 +47,6 @@ public enum UseGravatar {
      * @return the URL parameter representation for this use Gravatar
      */
     public String getUrlParameterRepresentation() {
-        return switch (this) {
-            case NO -> "no";
-            case YES -> "yes";
-            case HASHED -> "hashed";
-        };
+        return urlParameterName;
     }
 }

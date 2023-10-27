@@ -208,11 +208,47 @@ public class RoboHashRequestBuilderImplTest {
         assertNotEquals(implementationOne, differentOne);
         assertNotEquals(implementationOne, new Object());
 
-        RoboHashRequestBuilder differingImageSets1 = new RoboHashRequestBuilderImpl("key1", true)
-                .setImageSets(ImmutableList.of(ImageSet.KITTENS));
-        RoboHashRequestBuilder differingImageSets2 = new RoboHashRequestBuilderImpl("key1", true)
-                .setImageSets(ImmutableList.of(ImageSet.HUMANS));
-        assertNotEquals(differingImageSets1, differingImageSets2);
+        assertNotEquals(
+                new RoboHashRequestBuilderImpl("key1"),
+                new RoboHashRequestBuilderImpl("key2"));
+        assertNotEquals(
+                new RoboHashRequestBuilderImpl("key1", true),
+                new RoboHashRequestBuilderImpl("key1", false));
+        assertNotEquals(
+                new RoboHashRequestBuilderImpl("key1")
+                        .setImageSets(ImmutableList.of(ImageSet.HUMANS)),
+                new RoboHashRequestBuilderImpl("key1")
+                        .setImageSets(ImmutableList.of(ImageSet.KITTENS)));
+        assertNotEquals(
+                new RoboHashRequestBuilderImpl("key1")
+                        .setBackgroundSet(BackgroundSet.SPIRAL_AND_PATTERNS),
+                new RoboHashRequestBuilderImpl("key1")
+                        .setBackgroundSet(BackgroundSet.OUTSIDE));
+        assertNotEquals(
+                new RoboHashRequestBuilderImpl("key1")
+                        .setWidth(200),
+                new RoboHashRequestBuilderImpl("key1")
+                        .setWidth(201));
+        assertNotEquals(
+                new RoboHashRequestBuilderImpl("key1")
+                        .setHeight(200),
+                new RoboHashRequestBuilderImpl("key1")
+                        .setHeight(201));
+        assertNotEquals(
+                new RoboHashRequestBuilderImpl("key1")
+                        .setUseGravatar(UseGravatar.HASHED),
+                new RoboHashRequestBuilderImpl("key1")
+                        .setUseGravatar(UseGravatar.YES));
+        assertNotEquals(
+                new RoboHashRequestBuilderImpl("key1")
+                        .setIgnoreExtension(false),
+                new RoboHashRequestBuilderImpl("key1")
+                        .setIgnoreExtension(true));
+        assertNotEquals(
+                new RoboHashRequestBuilderImpl("key1")
+                        .setImageExtension(ImageExtension.JPEG),
+                new RoboHashRequestBuilderImpl("key1")
+                        .setImageExtension(ImageExtension.PNG));
     }
 
     /**
