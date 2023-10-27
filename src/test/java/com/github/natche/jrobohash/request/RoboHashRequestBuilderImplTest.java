@@ -208,25 +208,11 @@ public class RoboHashRequestBuilderImplTest {
         assertNotEquals(implementationOne, differentOne);
         assertNotEquals(implementationOne, new Object());
 
-        // Test all parts of the equals method
-        RoboHashRequestBuilder comparisonImplementation = new RoboHashRequestBuilderImpl("key1", true)
-                .setImageSets(ImmutableList.of(ImageSet.KITTENS))
-                .setBackgroundSet(BackgroundSet.SPIRAL_AND_PATTERNS)
-                .setWidth(25)
-                .setHeight(25)
-                .setUseGravatar(UseGravatar.HASHED)
-                .setIgnoreExtension(true)
-                .setImageExtension(ImageExtension.JPEG);
-        RoboHashRequestBuilder differentComparisonImplementation = new RoboHashRequestBuilderImpl("key2", false)
-                .setImageSets(ImmutableList.of(ImageSet.HUMANS))
-                .setBackgroundSet(BackgroundSet.OUTSIDE)
-                .setWidth(50)
-                .setHeight(50)
-                .setUseGravatar(UseGravatar.NO)
-                .setIgnoreExtension(false)
-                .setImageExtension(ImageExtension.PNG);
-        assertNotEquals(comparisonImplementation, differentComparisonImplementation);
-
+        RoboHashRequestBuilder differingImageSets1 = new RoboHashRequestBuilderImpl("key1", true)
+                .setImageSets(ImmutableList.of(ImageSet.KITTENS));
+        RoboHashRequestBuilder differingImageSets2 = new RoboHashRequestBuilderImpl("key1", true)
+                .setImageSets(ImmutableList.of(ImageSet.HUMANS));
+        assertNotEquals(differingImageSets1, differingImageSets2);
     }
 
     /**
