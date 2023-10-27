@@ -2,6 +2,8 @@
 
 ![Author](./assets/author.png)
 
+[![codecov](https://codecov.io/github/NathanCheshire/JRoboHash/graph/badge.svg?token=FORj9lW2D3)](https://codecov.io/github/NathanCheshire/JRoboHash)
+
 ## Intro
 
 This library is a Java/JVM wrapper for the RoboHash profile API.

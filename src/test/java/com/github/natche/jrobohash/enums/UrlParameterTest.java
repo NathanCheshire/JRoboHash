@@ -57,5 +57,10 @@ public class UrlParameterTest {
 
         assertEquals("?size=300x300", UrlParameter.SIZE.encodeUrlParameter("300x300", true));
         assertEquals("&size=200x200", UrlParameter.SIZE.encodeUrlParameter("200x200", false));
+
+        assertThrows(NullPointerException.class, () -> UrlParameter.SIZE.encodeUrlParameter(null));
+        assertThrows(IllegalArgumentException.class, () -> UrlParameter.SIZE.encodeUrlParameter(""));
+        assertThrows(IllegalArgumentException.class, () -> UrlParameter.SIZE.encodeUrlParameter("     "));
+        assertEquals("&size=300x300", UrlParameter.SIZE.encodeUrlParameter("300x300"));
     }
 }
