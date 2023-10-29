@@ -140,17 +140,11 @@ public class RoboHashRequestHandler {
 
         ImmutableList<ImageSet> imageSets = ImmutableList.copyOf(builder.getImageSets());
         if (imageSets.contains(ImageSet.ANY)) return ImageSet.ANY.constructUrlParameter(true);
+        if (imageSets.size() == 1) return imageSets.get(0).constructUrlParameter(true);
 
-        return switch (imageSets.size()) {
-            case 0:
-                throw new IllegalStateException("Builder has no images sets");
-            case 1:
-                yield imageSets.get(0).constructUrlParameter(true);
-            default:
-                yield UrlParameter.IMAGE_SETS.encodeUrlParameter(imageSets.stream()
-                        .map(ImageSet::getListUrlParameterName)
-                        .collect(Collectors.joining(",")), true);
-        };
+        return UrlParameter.IMAGE_SETS.encodeUrlParameter(imageSets.stream()
+                .map(ImageSet::getListUrlParameterName)
+                .collect(Collectors.joining(",")), true);
     }
 
     /**
