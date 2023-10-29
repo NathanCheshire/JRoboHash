@@ -18,7 +18,7 @@ import java.util.List;
  * The standard, default implementation of {@link RoboHashRequestBuilder}.
  *
  * @author nathancheshire
- * @since 1.0
+ * @since 1.0.0
  */
 public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     /**
@@ -79,6 +79,8 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
 
     /**
      * Constructs a new RoboHashRequestBuilderImpl object.
+     * Note that this constructor enables safeUrlMode by default.
+     * To disable this, use {@link RoboHashRequestBuilderImpl#RoboHashRequestBuilderImpl(String, boolean)}.
      *
      * @param avatarKey the key for the RoboHash avatar to be included in the URL
      * @throws NullPointerException     if the provided avatarKey is null
@@ -125,8 +127,14 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     public RoboHashRequestBuilder addImageSet(ImageSet imageSet) {
         Preconditions.checkNotNull(imageSet);
 
+        // Ensure if ANY is contained in the list, it is the only element
+        if (imageSet != ImageSet.ANY) {
+            imageSets.remove(ImageSet.ANY);
+        } else {
+            imageSets.clear();
+        }
+
         imageSets.add(imageSet);
-        if (imageSet != ImageSet.ANY) imageSets.remove(ImageSet.ANY);
         return this;
     }
 
@@ -318,7 +326,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
      */
     @Override
     public RoboHashRequestBuilder setWidth(int width) {
-        Preconditions.checkArgument(width >= 0);
+        Preconditions.checkArgument(width > 0);
 
         this.width = width;
         return this;
@@ -344,7 +352,7 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
      */
     @Override
     public RoboHashRequestBuilder setHeight(int height) {
-        Preconditions.checkArgument(height >= 0);
+        Preconditions.checkArgument(height > 0);
 
         this.height = height;
         return this;
@@ -372,8 +380,8 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
     @Override
     public RoboHashRequestBuilder setSize(Dimension size) {
         Preconditions.checkNotNull(size);
-        Preconditions.checkArgument(size.width >= 0);
-        Preconditions.checkArgument(size.height >= 0);
+        Preconditions.checkArgument(size.width > 0);
+        Preconditions.checkArgument(size.height > 0);
 
         this.width = size.width;
         this.height = size.height;
@@ -551,6 +559,6 @@ public class RoboHashRequestBuilderImpl implements RoboHashRequestBuilder {
                 + ", ignoreExtension=" + ignoreExtension
                 + ", imageExtension=" + imageExtension
                 + ", safeUrlMode=" + safeUrlMode
-                + '}';
+                + "}";
     }
 }

@@ -1,8 +1,10 @@
 package com.github.natche.jrobohash.enums;
 
+import com.github.natche.jrobohash.exceptions.JRoboHashException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Tests for the {@link ImageSet}s supported by RoboHash.
@@ -44,5 +46,15 @@ public class ImageSetTest {
         assertEquals("?set=set4", ImageSet.KITTENS.constructUrlParameter(true));
         assertEquals("?set=set5", ImageSet.HUMANS.constructUrlParameter(true));
         assertEquals("?set=any", ImageSet.ANY.constructUrlParameter(true));
+    }
+
+    @Test
+    void testGetListUrlParameterName() {
+        assertEquals("1", ImageSet.DEFAULT.getListUrlParameterName());
+        assertEquals("2", ImageSet.MONSTERS.getListUrlParameterName());
+        assertEquals("3", ImageSet.SEXY_ROBOTS.getListUrlParameterName());
+        assertEquals("4", ImageSet.KITTENS.getListUrlParameterName());
+        assertEquals("5", ImageSet.HUMANS.getListUrlParameterName());
+        assertThrows(JRoboHashException.class, ImageSet.ANY::getListUrlParameterName);
     }
 }

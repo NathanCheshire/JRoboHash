@@ -78,7 +78,7 @@ public class RoboHashRequestHandlerTest {
         } catch (Exception e) {
             assertTrue(e instanceof InvocationTargetException);
             Throwable target = ((InvocationTargetException) e).getTargetException();
-            assertTrue(target instanceof AssertionError);
+            assertInstanceOf(AssertionError.class, target);
             assertEquals("Cannot create instances of RoboHashRequestHandler", target.getMessage());
         }
     }
@@ -113,9 +113,19 @@ public class RoboHashRequestHandlerTest {
      */
     @Test
     void testGetImage() {
-        // this is transitively tested by the below saveToFile test
+        // this is transitively tested by testSaveToFile
     }
 
+    /**
+     * Returns whether the images stored in the provided files are equivalent.
+     *
+     * @param imageFile the first image file
+     * @param otherImageFile the second image file
+     * @return whether the images stored in the provided files are equivalent
+     * @throws NullPointerException if either of the files is null
+     * @throws IllegalArgumentException if either of the files do not exist
+     * @throws JRoboHashException if an exception occurs when reading either image
+     */
     private boolean fileImagesEqual(File imageFile, File otherImageFile) {
         Preconditions.checkNotNull(imageFile);
         Preconditions.checkNotNull(otherImageFile);

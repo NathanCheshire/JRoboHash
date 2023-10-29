@@ -120,7 +120,7 @@ public class RoboHashRequestHandler {
         Preconditions.checkNotNull(urlBuilder);
 
         urlBuilder.append(getImageSetsUrlParameter(builder));
-        urlBuilder.append(UrlParameter.BACKGROUND_SET.encodeUrlParameter(builder.getBackgroundSet().getSetName()));
+        urlBuilder.append(UrlParameter.BACKGROUND_SET.encodeUrlParameter(builder.getBackgroundSet().getBackgroundSetName()));
         urlBuilder.append(constructSizeParameter(builder));
         urlBuilder.append(builder.getUseGravatar().constructUrlParameter(false));
         if (!builder.shouldIgnoreExtension()) {
@@ -139,16 +139,18 @@ public class RoboHashRequestHandler {
         Preconditions.checkNotNull(builder);
 
         ImmutableList<ImageSet> imageSets = ImmutableList.copyOf(builder.getImageSets());
-        if (imageSets.contains(ImageSet.ANY)) {
-            return ImageSet.ANY.constructUrlParameter(true);
-        } else if (imageSets.size() > 1) {
-            return UrlParameter.IMAGE_SETS.encodeUrlParameter(
-                    imageSets.stream()
-                            .map(ImageSet::getListUrlParameterName)
-                            .collect(Collectors.joining(",")), true);
-        } else {
-            return imageSets.get(0).constructUrlParameter(true);
-        }
+        if (imageSets.contains(ImageSet.ANY)) return ImageSet.ANY.constructUrlParameter(true);
+
+        return switch (imageSets.size()) {
+            case 0:
+                throw new IllegalStateException("Builder has no images sets");
+            case 1:
+                yield imageSets.get(0).constructUrlParameter(true);
+            default:
+                yield UrlParameter.IMAGE_SETS.encodeUrlParameter(imageSets.stream()
+                        .map(ImageSet::getListUrlParameterName)
+                        .collect(Collectors.joining(",")), true);
+        };
     }
 
     /**
@@ -161,7 +163,7 @@ public class RoboHashRequestHandler {
     private static String constructSizeParameter(RoboHashRequestBuilder builder) {
         Preconditions.checkNotNull(builder);
 
-        String size = builder.getWidth() + WIDTH_HEIGHT_SEPARATOR + builder.getHeight();
-        return UrlParameter.SIZE.encodeUrlParameter(size);
+        String sizeQueryStringParamValue = builder.getWidth() + WIDTH_HEIGHT_SEPARATOR + builder.getHeight();
+        return UrlParameter.SIZE.encodeUrlParameter(sizeQueryStringParamValue);
     }
 }

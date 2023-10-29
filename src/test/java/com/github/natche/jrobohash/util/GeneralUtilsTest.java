@@ -30,9 +30,11 @@ public class GeneralUtilsTest {
             constructor.setAccessible(true);
             constructor.newInstance();
         } catch (Exception e) {
+            // We could use an assertInstanceOf here but that results in the JVM not being smart enough
+            // to realize that e is an instance of InvocationTargetException for the lines below
             assertTrue(e instanceof InvocationTargetException);
             Throwable target = ((InvocationTargetException) e).getTargetException();
-            assertTrue(target instanceof AssertionError);
+            assertInstanceOf(AssertionError.class, target);
             assertEquals("Cannot create instances of GeneralUtils", target.getMessage());
         }
     }
@@ -69,6 +71,8 @@ public class GeneralUtilsTest {
 
         assertFalse(GeneralUtils.isValidFilename("$%^&*()"));
         assertFalse(GeneralUtils.isValidFilename("<>:/"));
+        assertFalse(GeneralUtils.isValidFilename("<>:/.png"));
+        assertFalse(GeneralUtils.isValidFilename("<>:/.png.pdf"));
     }
 
     /**
@@ -79,8 +83,8 @@ public class GeneralUtilsTest {
         assertThrows(NullPointerException.class, () -> GeneralUtils.isValidUrlChars(null));
         assertThrows(IllegalArgumentException.class, () -> GeneralUtils.isValidUrlChars(""));
         assertThrows(IllegalArgumentException.class, () -> GeneralUtils.isValidUrlChars("   "));
-        assertTrue(GeneralUtils.isValidUrlChars("validURL123-._~"), "Expected input to be valid, but was considered invalid.");
-        assertFalse(GeneralUtils.isValidUrlChars("invalidURL$#@"), "Expected input to be invalid, but was considered valid.");
+        assertTrue(GeneralUtils.isValidUrlChars("validURL123-._~"));
+        assertFalse(GeneralUtils.isValidUrlChars("invalidURL$#@"));
     }
 
     /**

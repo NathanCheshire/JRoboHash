@@ -29,6 +29,8 @@ public final class JRoboHashException extends RuntimeException {
 
     /**
      * Validates the provided exception message.
+     * This is necessary to allow for the super keyword to be the first call
+     * in the {@link JRoboHashException#JRoboHashException(String)} constructor.
      *
      * @param message the message provided
      * @return the original message

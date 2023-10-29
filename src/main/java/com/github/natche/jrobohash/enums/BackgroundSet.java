@@ -19,10 +19,10 @@ public enum BackgroundSet {
      */
     ANY("any");
 
-    private final String setName;
+    private final String backgroundSetName;
 
     BackgroundSet(String setName) {
-        this.setName = setName;
+        this.backgroundSetName = setName;
     }
 
     /**
@@ -30,8 +30,8 @@ public enum BackgroundSet {
      *
      * @return the set name for this background set
      */
-    public String getSetName() {
-        return setName;
+    public String getBackgroundSetName() {
+        return backgroundSetName;
     }
 
     /**
@@ -41,6 +41,6 @@ public enum BackgroundSet {
      * @return the URL parameter for this background set
      */
     public String constructUrlParameter(boolean firstParameter) {
-        return UrlParameter.BACKGROUND_SET.encodeUrlParameter(setName, firstParameter);
+        return UrlParameter.BACKGROUND_SET.encodeUrlParameter(backgroundSetName, firstParameter);
     }
 }

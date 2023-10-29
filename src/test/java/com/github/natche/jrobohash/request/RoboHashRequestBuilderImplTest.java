@@ -130,10 +130,15 @@ public class RoboHashRequestBuilderImplTest {
         implementationOne.resetWidth();
         assertEquals(RoboHashRequestBuilderImpl.DEFAULT_WIDTH, implementationOne.getWidth());
         assertThrows(IllegalArgumentException.class, () -> implementationOne.setWidth(-1));
+        assertThrows(IllegalArgumentException.class, () -> implementationOne.setWidth(0));
         assertThrows(IllegalArgumentException.class, () -> implementationOne.setHeight(-1));
+        assertThrows(IllegalArgumentException.class, () -> implementationOne.setHeight(0));
         assertThrows(IllegalArgumentException.class, () -> implementationOne.setSize(new Dimension(-1, 1)));
         assertThrows(IllegalArgumentException.class, () -> implementationOne.setSize(new Dimension(1, -1)));
         assertThrows(IllegalArgumentException.class, () -> implementationOne.setSize(new Dimension(-1, -1)));
+        assertThrows(IllegalArgumentException.class, () -> implementationOne.setSize(new Dimension(0, 0)));
+        assertThrows(IllegalArgumentException.class, () -> implementationOne.setSize(new Dimension(0, 1)));
+        assertThrows(IllegalArgumentException.class, () -> implementationOne.setSize(new Dimension(1, 0)));
         assertDoesNotThrow(() -> implementationOne.setSize(new Dimension(1, 1)));
 
         implementationOne.setHeight(5150);

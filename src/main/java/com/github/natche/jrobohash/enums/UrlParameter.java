@@ -7,7 +7,7 @@ import com.google.common.base.Preconditions;
  */
 public enum UrlParameter {
     /**
-     * The {@link ImageExtension}.
+     * The {@link ImageExtension} URL parameter.
      */
     IMAGE_EXTENSION(""),
 
@@ -44,10 +44,10 @@ public enum UrlParameter {
      */
     SIZE("size");
 
-    private final String urlParameter;
+    private final String urlParameterName;
 
-    UrlParameter(String urlParameter) {
-        this.urlParameter = urlParameter;
+    UrlParameter(String urlParameterName) {
+        this.urlParameterName = urlParameterName;
     }
 
     /**
@@ -56,7 +56,7 @@ public enum UrlParameter {
      * @return the URL parameter such as "bgset" for {@link #BACKGROUND_SET}
      */
     public String getUrlParameterName() {
-        return urlParameter;
+        return urlParameterName;
     }
 
     /**
@@ -92,6 +92,6 @@ public enum UrlParameter {
         Preconditions.checkArgument(!parameter.trim().isEmpty());
 
         String prefix = isFirstParameter ? "?" : "&";
-        return prefix + urlParameter + "=" + parameter;
+        return prefix + urlParameterName + "=" + parameter;
     }
 }

@@ -10,7 +10,9 @@ This library is a Java/JVM wrapper for the RoboHash image API.
 
 ## Using with Gradle
 
-This artifact is not deployed on Maven, thus you will need to use [Jitpack](https://jitpack.io/) to utilize this library. Make sure you have the following line in your `repositories` Gradle config (it is recommended that JitPack be at the
+This artifact is not deployed on Maven, thus you will need to use [Jitpack](https://jitpack.io/) to utilize this
+library. Make sure you have the following line in your `repositories` Gradle config (it is recommended that JitPack be
+at the
 _end_ of the repositories section, [source](https://jitpack.io/docs/)):
 
 `maven { url 'https://jitpack.io' }`
@@ -22,12 +24,14 @@ The `COMMIT_HASH` may vary depending on the targeted version (commit SHA) of JRo
 ## API Support
 
 This client features support for the comprehensive RoboHash API.
-Using a [builder pattern](https://refactoring.guru/design-patterns/builder), all supported URL parameters are configurable via this API.
+Using a [builder pattern](https://refactoring.guru/design-patterns/builder), all supported URL parameters are
+configurable via this API.
 
 ## Getting Started
 
-Using the client is simplistic and intuitive yet also extensible should you require. The default implementation
-of `RoboHashRequestBuilder`, that of `RoboHashRequestBuilderImpl`, allows for the following:
+Using the client is simplistic and intuitive yet also extensible should the requirement present itself. The default
+implementation
+of `RoboHashRequestBuilder`, that of `RoboHashRequestBuilderImpl`, allows for the following as an example:
 
 ```java
 RoboHashRequestBuilder requestBuilder = new RoboHashRequestBuilderImpl('MY_AVATAR_KEY')
@@ -40,13 +44,14 @@ RoboHashRequestBuilder requestBuilder = new RoboHashRequestBuilderImpl('MY_AVATA
 There are of course additional mutators exposed by `RoboHashRequestBuilder`s to allow customization of all URL
 parameters supported by the RoboHash API.
 
-You may pass a `RoboHashRequestBuilder` instance to the `RoboHashRequestHandler` to generate URLs, download images, and save images which reflect the state of a `RoboHashRequestBuilder` instance.
+You may pass a `RoboHashRequestBuilder` instance to the `RoboHashRequestHandler` to generate URLs, load images into
+memory, and save images which reflect the state of a `RoboHashRequestBuilder` instance.
 
 ```java
-// Building a URL
+// Build a URL
 String builtUrl = RoboHashRequestHandler.buildRequestUrl(requestBuilder);
-// Saving the image to a file
-RoboHashRequestHandler.saveToFile(requestBuilder, new File("./path/to/my/file/my_image.jpeg"));
+// Save the image to a file
+RoboHashRequestHandler.saveToFile(requestBuilder,new File("./path/to/my/file/my_image.jpeg"));
 ```
 
 ## Contributing

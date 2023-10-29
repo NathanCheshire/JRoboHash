@@ -1,5 +1,7 @@
 package com.github.natche.jrobohash.enums;
 
+import com.github.natche.jrobohash.exceptions.JRoboHashException;
+
 /**
  * The supported RoboHash avatar image sets.
  */
@@ -33,7 +35,7 @@ public enum ImageSet {
     /**
      * Any set is valid and RoboHash may choose.
      */
-    ANY("any", null);
+    ANY("any", "");
 
     private final String urlParameterName;
     private final String listUrlParameterName;
@@ -56,8 +58,11 @@ public enum ImageSet {
      * Returns the list URL parameter name for this set such as "1" for {@link ImageSet#DEFAULT}.
      *
      * @return the list URL parameter name for this set such as "1" for {@link ImageSet#DEFAULT}
+     * @throws JRoboHashException if invoked on {@link #ANY}
      */
     public String getListUrlParameterName() {
+        if (this == ImageSet.ANY)
+            throw new JRoboHashException("Image set \"ANY\" does not have an associated list url parameter name");
         return listUrlParameterName;
     }
 
