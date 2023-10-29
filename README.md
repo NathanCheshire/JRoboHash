@@ -17,9 +17,12 @@ _end_ of the repositories section, [source](https://jitpack.io/docs/)):
 
 `maven { url 'https://jitpack.io' }`
 
-Then add the following to your dependencies: `implementation 'com.github.nathancheshire.jrobohash:COMMIT_HASH'`.
+Then add the following to your dependencies: `implementation 'com.github.nathancheshire.jrobohash:COMMIT_HASH_OR_RELEASE'`.
 
-The `COMMIT_HASH` may vary depending on the targeted version (commit SHA) of JRoboHash you would like to use.
+The `COMMIT_HASH_OR_RELEASE` may vary depending on the targeted version (commit SHA, or release) of JRoboHash you would like to use.
+
+For example, both `implementation 'com.github.nathancheshire.jrobohash:v1.0.0'` and 
+`implementation 'com.github.nathancheshire.jrobohash:e755c39'` would result in the same artifact.
 
 ## API Support
 
